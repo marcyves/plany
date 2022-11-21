@@ -1,0 +1,13 @@
+<header>
+	<h1>Clients List</h1>
+</header>
+<section class="tiles">
+	<% clients.forEach(function (client) {%>
+		<article class="style1">
+			<a href="catalogue/<%=client.id%>">
+				<h2><%=client.name%></h2>
+			</a>
+		</article>
+	<%})%>
+
+</section>
