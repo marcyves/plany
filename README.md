@@ -1,0 +1,2 @@
+# plany
+Easy Project Planification
