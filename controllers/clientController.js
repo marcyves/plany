@@ -20,11 +20,11 @@ class ClientController {
    * @param {*} id
    */
   async getClient(id) {
-        return  { id: 0,
-            title: "non trouvé",
-            band: "",
-            image: "pic01"};
+    return this.Client.findOne({
+      where: {clientId: id}
     }
+      );
   }
+}
 
 module.exports = ClientController;

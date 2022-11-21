@@ -11,7 +11,7 @@ module.exports = params => {
     response.render('layout', { pageTitle: 'Project Planner', template: 'index' });
   });
 
-  router.use('/clients', clientsRoute(params));
+  router.use('/client', clientsRoute(params));
   router.use('/contact', contactRoute(params));
 
   return router;

@@ -12,8 +12,8 @@ module.exports = params => {
     });
 
     router.get('/:id', async (request, response) => {
-        const client = await clientController.getDisc(request.params.id);    
-        return response.render('layout', { pageTitle: 'Client Details', template: 'client', client });
+        const client_details = await clientController.getClient(request.params.id);    
+        return response.render('layout', { pageTitle: 'Client Details', template: 'client_details', client_details });
     });
 
    return router;
