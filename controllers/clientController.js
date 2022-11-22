@@ -1,5 +1,3 @@
-const { client } = require("../models");
-
 /**
  * Logic for fetching clients information
  */
