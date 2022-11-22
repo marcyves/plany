@@ -16,9 +16,13 @@ module.exports = (sequelize, DataTypes) => {
           },
           budget: {
             type: DataTypes.FLOAT,
-            allowNull: false
+            allowNull: true
           },
           timeAllocated: {
+            type: DataTypes.FLOAT,
+            allowNull: true
+          },
+          realRate:{
             type: DataTypes.FLOAT,
             allowNull: false
           }

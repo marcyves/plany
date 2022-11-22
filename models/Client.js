@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
           name: {
             type: DataTypes.STRING,
             allowNull: false
+          },
+          defaultRate:{
+            type: DataTypes.FLOAT,
+            allowNull: true
           }
         },{
             // Ne pas ajouter les attibuts timestamps (updatedAt, createdAt)
