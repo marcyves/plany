@@ -22,7 +22,6 @@ class TaskController {
   async getTasksForProject(id) {
     console.log(`getTasksForProject ${id}`);
     const tasks = this.Task.findAll({ where: { projectId: id } });
-    console.log(tasks);
     return tasks;
   }
 }

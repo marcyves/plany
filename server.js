@@ -33,7 +33,7 @@ db.sequelize
     const projectController = new ProjectController(db.project);
 
     const TaskController = require("./controllers/taskController");
-    const taskController = new TaskController(db.project);
+    const taskController = new TaskController(db.task);
 
     const routes = require("./routes");
     const { response } = require("express");
