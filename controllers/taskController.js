@@ -20,7 +20,6 @@ class TaskController {
    * @param {*} id
    */
   async getTasksForProject(id) {
-    console.log(`getTasksForProject ${id}`);
     const tasks = this.Task.findAll({ where: { projectId: id } });
     return tasks;
   }
