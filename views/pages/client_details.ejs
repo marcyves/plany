@@ -4,5 +4,15 @@
 <section class="tiles">
 		<article class="style1">
 				<h2><%=client_details.name%></h2>
+
+				<ul class="style1">
+				<% projects.forEach(function (project) {%>
+					<li>
+						<a href="project/<%=project.projectId%>">
+							<%=project.name%>
+						</a>
+					</li>
+				<%})%>
+				</ul>
 		</article>
 </section>

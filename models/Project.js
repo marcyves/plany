@@ -1,14 +1,25 @@
-const Project = require('./project');
 
 module.exports = (sequelize, DataTypes) => {
-    const Client = sequelize.define('Client', {
-        clientId: {
+    const Project = sequelize.define('Project', {
+        projectId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
           },
+          clientId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+          },
           name: {
             type: DataTypes.STRING,
+            allowNull: false
+          },
+          budget: {
+            type: DataTypes.FLOAT,
+            allowNull: false
+          },
+          timeAllocated: {
+            type: DataTypes.FLOAT,
             allowNull: false
           }
         },{
@@ -20,7 +31,5 @@ module.exports = (sequelize, DataTypes) => {
             updatedAt: false,
     });
 
-    //    Client.hasMany(Project, {foreignKey: 'clientId'});
-
-    return Client;
+    return Project;
 };

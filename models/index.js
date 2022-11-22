@@ -24,18 +24,21 @@ const logging = config.LOG === "true"?true:false;
 */
 
   // SQLite plus facile pour les tests
-  const database = new Sequelize('sqlite::memory:');
+  const database = new Sequelize('sqlite::memory', {logging: logging});
   // const database = new Sequelize('sqlite:planner.sqlite');
-  
 
   db.Sequelize = Sequelize;
   db.sequelize = database;
 
   db.user = require("./User.js")(database, Sequelize.DataTypes);
   db.client = require("./Client.js")(database, Sequelize.DataTypes);
+  db.project = require("./Project.js")(database, Sequelize.DataTypes);
+  db.task = require("./Task.js")(database, Sequelize.DataTypes);
 
   // Ajout des relations
   db.user.hasMany(db.client, {foreignKey: 'userId'});
+  db.client.hasMany(db.project, {foreignKey: 'clientId'});
+  db.project.hasMany(db.task, {foreignKey: 'projectId'});
 //  db.order.belongsTo(db.user);
 
 module.exports = db;
