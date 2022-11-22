@@ -13,7 +13,12 @@ db.sequelize
     //
     sequelize_fixtures
       .loadFiles(
-        ["fixtures/user.json", "fixtures/client.json", "fixtures/project.json"],
+        [
+          "fixtures/user.json",
+          "fixtures/client.json",
+          "fixtures/project.json",
+          "fixtures/task.json"
+        ],
         db
       )
       .then(function () {
@@ -24,8 +29,11 @@ db.sequelize
     const ClientController = require("./controllers/clientController");
     const clientController = new ClientController(db.client, db.project);
 
-    const ProjectController = require("./controllers/ProjectController");
+    const ProjectController = require("./controllers/projectController");
     const projectController = new ProjectController(db.project);
+
+    const TaskController = require("./controllers/taskController");
+    const taskController = new TaskController(db.project);
 
     const routes = require("./routes");
     const { response } = require("express");
@@ -76,6 +84,7 @@ db.sequelize
         db,
         clientController,
         projectController,
+        taskController,
       })
     );
 

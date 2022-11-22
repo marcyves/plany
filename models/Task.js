@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       steps: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      },
+      }
     },
     {
       // Ne pas ajouter les attibuts timestamps (updatedAt, createdAt)
