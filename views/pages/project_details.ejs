@@ -1,19 +1,19 @@
 <header>
-	<h1>Project Details</h1>
+  <h1>Project Details</h1>
 </header>
 <section class="tiles">
-		<article class="style1">
-				<h2><%=project.name%> (<%=project.projectId%>)</h2>
+  <article class="style1">
+    <h2><%=project.name%> (<%=project.projectId%>)</h2>
 
-				<ul class="style1">
-				<% tasks.forEach(function (task) {%>
-					<li>
-						<ul>
-							<li>Name: <%=task.name%></li>
-							<li>Steps: <%=task.steps%></li>
-						</ul>
-					</li>
-				<%})%>
-				</ul>
-		</article>
+    <form method="GET" action="/task/edit/">
+        <% tasks.forEach(function (task) {%>
+        <br><input id="task_<%=task.taskId%>" type="radio" name="taskId" value="<%=task.taskId%>">
+		<label for="task_<%=task.taskId%>">
+			Name: <%=task.name%> - <%=task.steps%> steps
+		</label>
+        <%})%>
+		<br>
+	  <input type="submit" value="Edit">
+    </form>
+  </article>
 </section>
