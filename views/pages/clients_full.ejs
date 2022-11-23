@@ -1,0 +1,20 @@
+<div class="row row-cols-1 row-cols-md-3 g-4">
+	<% clients.forEach(function (client) {%>
+		<div class="col">
+			<a href="client/<%=client.clientId%>" class="card h-100" style="width: 18rem">
+				<div class="card-body">
+					<h5 class="card-title">
+						<%=client.name%>
+					</h5>
+					<ul class="list-group list-group-flush">
+						<% client.Projects.forEach(function (project) { %>
+							<li class="list-group-item">
+								<%= project.name %>
+							</li>
+							<% }) %>
+					</ul>
+				</div>
+			</a>
+		</div>
+		<%})%>
+</div>
