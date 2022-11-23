@@ -75,7 +75,7 @@ db.sequelize
       next();
     });
 
-    app.use(express.static(path.join(__dirname, "./Phantom")));
+    app.use(express.static(path.join(__dirname, "./Theme")));
     app.locals.siteName = "Freelance Planificator";
 
     app.use(
