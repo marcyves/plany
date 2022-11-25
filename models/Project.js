@@ -25,6 +25,18 @@ module.exports = (sequelize, DataTypes) => {
           realRate:{
             type: DataTypes.FLOAT,
             allowNull: false
+          },
+          period: {
+            type: DataTypes.STRING,
+            allowNull: true
+          },
+          year: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+          startDate: {
+            type: DataTypes.DATE,
+            allowNull: true
           }
         },{
             // Ne pas ajouter les attibuts timestamps (updatedAt, createdAt)

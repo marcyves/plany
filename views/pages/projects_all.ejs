@@ -1,3 +1,11 @@
-<header>
+
   <h1>All Projects</h1>
-</header>
+<ul>
+
+<% projects.forEach(function (project) {%>
+  <li>
+    <a href="project/<%=project.clientId%>">
+      <%=project.name%></a> Duration: <%=project.timeAllocated%> Budget: <%=project.budget%>
+  </li>
+<%})%>
+</ul>

@@ -7,6 +7,23 @@ class ProjectController {
       }
 
   /**
+   * Get all project details 
+   */
+   async getProjects() {
+    const projects = this.Project.findAll({ order:["year", "clientId"], include: this.Client });
+    return projects;
+  }
+
+    /**
+   * Get all project details 
+   */
+     async getProjectsByYear(year) {
+      const projects = this.Project.findAll({ order:["clientId"], include: this.Client, where: { year: year} });
+      return projects;
+    }
+  
+  
+   /**
    * Get project details provided its id
    * @param {*} id
    */

@@ -6,7 +6,8 @@ module.exports = params => {
     const { db, clientController, projectController, taskController } = params;
 
     router.get('/', async (request, response) => {
-        return response.render('layout', { pageTitle: 'My Projects', template: 'projects_all' });
+        const projects = await projectController.getProjects();
+        return response.render('layout', { pageTitle: 'My Projects', template: 'projects_all', projects });
     });
 
     router.get('/:id', async (request, response) => {
