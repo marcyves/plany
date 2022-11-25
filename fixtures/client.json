@@ -3,70 +3,24 @@
         "model": "client",
         "data": {
             "clientId": 1,
-            "name": "Alpina"
+            "name": "School 1",
+            "defaultRate": 100.00
         }
     },
     {
         "model": "client",
         "data": {
             "clientId": 2,
-            "name": "Oural"
+            "name": "School 2",
+            "defaultRate": 60.00
         }
     },
     {
         "model": "client",
         "data": {
             "clientId": 3,
-            "name": "Etna"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 4,
-            "name": "Stefi"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 5,
-            "name": "Pronto"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 6,
-            "name": "Dorte"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 7,
-            "name": "Anna"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 8,
-            "name": "Gunte"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 9,
-            "name": "Elfie"
-        }
-    },
-    {
-        "model": "client",
-        "data": {
-            "clientId": 10,
-            "name": "Carla"
+            "name": "School 3",
+            "defaultRate": 90.00
         }
     }        
 ]
