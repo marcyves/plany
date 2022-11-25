@@ -11,7 +11,7 @@ module.exports = params => {
     });
 
     router.get('/:id', async (request, response) => {
-        console.log("Routeur client id")
+
         const client_details = await clientController.getClient(request.params.id);
         if (client_details){
             const projects = await projectController.getProjectsForClient(request.params.id);
