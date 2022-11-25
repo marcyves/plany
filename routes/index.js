@@ -8,7 +8,9 @@ const contactRoute = require("./contact");
 
 module.exports = (params) => {
 
-//  router.use("/", clientsRoute(params));
+  router.get('/', (req, res) => {
+    res.redirect('/client');
+  })
   router.use("/client", clientsRoute(params));
   router.use("/project", projectRoute(params));
   router.use("/contact", contactRoute(params));
