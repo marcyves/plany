@@ -37,8 +37,12 @@ const logging = config.LOG === "true"?true:false;
 
   // Ajout des relations
   db.user.hasMany(db.client, {foreignKey: 'userId'});
+
+  db.project.belongsTo(db.client);
   db.client.hasMany(db.project, {foreignKey: 'clientId'});
+
+  db.task.belongsTo(db.project, {foreignKey: 'projectId'});
   db.project.hasMany(db.task, {foreignKey: 'projectId'});
-//  db.order.belongsTo(db.user);
+
 
 module.exports = db;
