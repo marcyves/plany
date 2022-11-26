@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const userRoute = require("./user");
 // Les routes par page
 const clientsRoute = require("./clients");
 const projectRoute = require("./project");
@@ -12,6 +13,7 @@ module.exports = (params) => {
   router.get('/', (req, res) => {
     res.redirect('/client');
   })
+  router.use("/user", userRoute(params));
   router.use("/client", clientsRoute(params));
   router.use("/project", projectRoute(params));
   router.use("/task", taskRoute(params));

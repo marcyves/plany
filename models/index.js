@@ -36,6 +36,7 @@ const logging = config.LOG === "true"?true:false;
   db.task = require("./Task.js")(database, Sequelize.DataTypes);
 
   // Ajout des relations
+  db.client.belongsTo(db.user);
   db.user.hasMany(db.client, {foreignKey: 'userId'});
 
   db.project.belongsTo(db.client);

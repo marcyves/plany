@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      surname: {
+      last_name: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      firstname: {
+      first_name: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      pwd: {
+      password: {
         type: DataTypes.STRING,
         allowNull: false
       },

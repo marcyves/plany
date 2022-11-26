@@ -27,6 +27,9 @@ db.sequelize
       });
 
     // Controllers
+    const UserController = require("./controllers/userController");
+    const userController = new UserController(db.client, db.user);
+
     const ClientController = require("./controllers/clientController");
     const clientController = new ClientController(db.client, db.project);
 
@@ -102,6 +105,7 @@ db.sequelize
       "/",
       routes({
         db,
+        userController,
         clientController,
         projectController,
         taskController,
