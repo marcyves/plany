@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const cookieSession = require("cookie-session");
 
 // Data base
@@ -17,7 +18,7 @@ db.sequelize
           "fixtures/user.json",
           "fixtures/client.json",
           "fixtures/project.json",
-          "fixtures/task.json"
+          "fixtures/task.json",
         ],
         db
       )
@@ -76,7 +77,26 @@ db.sequelize
     });
 
     app.use(express.static(path.join(__dirname, "./Theme")));
-    app.locals.siteName = "Freelance Planificator";
+    fs.readFile(
+      path.join(__dirname, "./config/params.json"),
+      "utf-8",
+      (err, data) => {
+        if (err) {
+          console.error(
+            `Error Reading Parameters File ${err} - Using Default Options`
+          );
+          app.locals.siteName = "Freelance Planificator";
+          app.locals.clientLabel = "Client";
+          app.locals.projectLabel = "Project";
+          app.locals.taskLabel = "Task";
+        } else {
+          app.locals.siteName = JSON.parse(data).name;
+          app.locals.clientLabel = JSON.parse(data).labels["Client"];
+          app.locals.projectLabel = JSON.parse(data).labels["Project"];
+          app.locals.taskLabel = JSON.parse(data).labels["Task"];
+        }
+      }
+    );
 
     app.use(
       "/",
