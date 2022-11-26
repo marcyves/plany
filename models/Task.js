@@ -7,11 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      projectId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      name: {
+      taskName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
