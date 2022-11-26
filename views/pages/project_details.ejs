@@ -1,19 +1,29 @@
-<header>
-  <h1>Project Details</h1>
-</header>
-<section class="tiles">
-  <article class="style1">
-    <h2><%=project.name%> (<%=project.projectId%>)</h2>
+<h1><%= projectLabel %> Details and <%= taskLabel %>s</h1>
 
-    <form method="GET" action="/task/edit/">
-        <% tasks.forEach(function (task) {%>
-        <br><input id="task_<%=task.taskId%>" type="radio" name="taskId" value="<%=task.taskId%>">
-		<label for="task_<%=task.taskId%>">
-			Name: <%=task.name%> - <%=task.steps%> steps
-		</label>
-        <%})%>
-		<br>
-	  <input class="primary" type="submit" value="Edit">
-    </form>
-  </article>
-</section>
+<form method="get" action="/task">
+  <div class="card" style="width: 18rem">
+    <div class="card-header"><%=project.name%> (<%=project.projectId%>)</div>
+    <ul class="list-group list-group-flush">
+      <% tasks.forEach(function (task) {%>
+      <li class="list-group-item">
+        <input
+          id="task_<%=task.taskId%>"
+          type="radio"
+          name="taskId"
+          value="<%=task.taskId%>"
+        />
+
+        Name: <%=task.name%> - <%=task.steps%> steps
+      </li>
+      <%})%>
+    </ul>
+
+    <div class="card-body">
+      <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button class="btn btn-outline-primary" name="cmd" value="details" >Details</button>
+        <button class="btn btn-outline-primary" name="cmd" value="edit">Edit</button>
+        <button class="btn btn-outline-primary" name="cmd" value="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</form>

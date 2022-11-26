@@ -1,11 +1,26 @@
 
-  <h1>All Projects</h1>
+  <h1></h1>
 <ul>
 
-<% projects.forEach(function (project) {%>
-  <li>
-    <a href="project/<%=project.clientId%>">
-      <%=project.name%></a> Duration: <%=project.timeAllocated%> Budget: <%=project.budget%>
-  </li>
-<%})%>
+
 </ul>
+
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+    All <%= projectLabel %>s
+  </button>
+
+<ol class="list-group list-group-numbered">
+  <% projects.forEach(function (project) {%>  
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold"><a href="project/<%=project.clientId%>"><%=project.name%></a></div>
+        Budget: <%=project.budget%> €
+      </div>
+      <span class="badge bg-primary rounded-pill"><%=project.timeAllocated%></span>
+    </li>
+    <%})%>
+</ol>
+
+
+</div>
