@@ -18,11 +18,38 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", function (req, response, next) {
-    return response.render('layout', { pageTitle: 'Login', template: 'login' });
+    const message = "";
+    return response.render('layout', { pageTitle: 'Login', template: 'login', message });
+});
+
+router.post("/login", async (req, response, next) => {
+  const user = await userController.getUser(req.body.email);
+  if (user) {
+    const password_valid = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (password_valid) {
+      token = jwt.sign(
+        { id: user.id, email: user.email, first_name: user.first_name },
+        process.env.SECRET
+      );
+      response.status(200).json({ token: token });
+    } else {
+      const message = "Password Incorrect";
+      return response.render('layout', { pageTitle: 'Login', template: 'login', message });
+//    response.status(400).json({ error: "Password Incorrect" });
+    }
+  } else {
+    const message = "User does not exist";
+    return response.render('layout', { pageTitle: 'Login', template: 'login', message });
+//  response.status(404).json({ error: "User does not exist" });
+  }
 });
 
 router.get("/signup", function (req, response, next) {
-    return response.render('layout', { pageTitle: 'Sign Up', template: 'signup' });
+    const message = "";
+    return response.render('layout', { pageTitle: 'Sign Up', template: 'signup', message });
 });
 
 router.post("/", async (req, res, next) => {
@@ -37,27 +64,6 @@ router.post("/", async (req, res, next) => {
   };
   created_user = await User.create(usr);
   res.status(201).json(created_user);
-});
-
-router.post("/login", async (req, res, next) => {
-  const user = await userController.getUser(req.body.email);
-  if (user) {
-    const password_valid = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (password_valid) {
-      token = jwt.sign(
-        { id: user.id, email: user.email, first_name: user.first_name },
-        process.env.SECRET
-      );
-      res.status(200).json({ token: token });
-    } else {
-      res.status(400).json({ error: "Password Incorrect" });
-    }
-  } else {
-    res.status(404).json({ error: "User does not exist" });
-  }
 });
 
 router.get("/me", async (req, res, next) => {
