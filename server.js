@@ -1,13 +1,13 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const { config } = require('dotenv');
 const cookieSession = require("cookie-session");
 
 // Data base
 const sequelize_fixtures = require("sequelize-fixtures");
 const db = require("./models");
-db.sequelize
-  .sync({ force: true })
+db.sequelize.sync({ force: true })
   .then(() => {
     console.log("== Data Base Loaded");
     // Import test data
@@ -43,7 +43,7 @@ db.sequelize
     const { response } = require("express");
 
     const app = express();
-    const port = 3000;
+    const port = parseInt(process.env.PORT) || 3000;
 
     app.set("trust proxy", 1);
 
@@ -63,6 +63,9 @@ db.sequelize
         extended: true,
       })
     );
+
+    /* 
+    Waiting for API version
     app.use(express.json());
 
     //sécurité cors abaissée//
@@ -78,7 +81,7 @@ db.sequelize
       );
       next();
     });
-
+*/
     app.use(express.static(path.join(__dirname, "./Theme")));
     fs.readFile(
       path.join(__dirname, "./config/params.json"),
