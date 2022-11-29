@@ -2,7 +2,8 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { config } = require('dotenv');
-const cookieSession = require("cookie-session");
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 // Data base
 const sequelize_fixtures = require("sequelize-fixtures");
@@ -46,24 +47,26 @@ db.sequelize.sync({ force: true })
     const port = parseInt(process.env.PORT) || 3000;
 
     app.set("trust proxy", 1);
-
-    app.use(
-      cookieSession({
-        name: "session",
-        keys: ["premièreclefsecretecryptée", "secondeclefsecretecryptée"],
-      })
-    );
-
     app.set("views", path.join(__dirname, "./views"));
     app.set("view engine", "ejs");
 
     // Parseur JSON pour recevoir les données de requêtes
     app.use(
       express.urlencoded({
-        extended: true,
-      })
-    );
+        extended: true
+      }));
+      app.use(cookieParser());
+      app.use(session({
+        secret: process.env.COOKIE_SECRET,
+        resave: true,
+        saveUninitialized: true
+    }));
 
+    // middleware to make 'token' available to all templates
+    app.use(function(req, res, next) {
+      res.locals.token = req.session.token;
+      next();
+    });
     /* 
     Waiting for API version
     app.use(express.json());

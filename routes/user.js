@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const Models = require("./../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const dotenv = require("dotenv");
-const User = Models.User;
-// dotenv.config();
 
 module.exports = params => {
     const { db, userController } = params;
@@ -34,9 +30,14 @@ router.post("/login", async (req, response, next) => {
         { id: user.id, email: user.email, first_name: user.first_name },
         process.env.SECRET
       );
-      response.status(200).json({ token: token });
+      req.session.token = token;
+      const message = "Login Successfull";
+      console.log(message);
+      return response.redirect("/project");
+//      response.status(200).json({ token: token });
     } else {
       const message = "Password Incorrect";
+      console.log(message);
       return response.render('layout', { pageTitle: 'Login', template: 'login', message });
 //    response.status(400).json({ error: "Password Incorrect" });
     }
@@ -52,18 +53,23 @@ router.get("/signup", function (req, response, next) {
     return response.render('layout', { pageTitle: 'Sign Up', template: 'signup', message });
 });
 
-router.post("/", async (req, res, next) => {
-  //res.status(201).json(req.body);
-  //add new user and return 201
-  const salt = await bcrypt.genSalt(10);
-  var usr = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    password: await bcrypt.hash(req.body.password, salt),
-  };
-  created_user = await User.create(usr);
-  res.status(201).json(created_user);
+router.post("/signup", async (req, response, next) => {
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(req.body.password, salt, function(err, hash) {
+        // Store hash in your password DB.
+        var usr = {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          email: req.body.email,
+          password: hash,
+        };
+        created_user = userController.create(usr);        
+        const message = `New user ${usr.email} created`;
+        console.log(message);
+        return response.render('layout', { pageTitle: 'Log in', template: 'login', message });
+    });
+});
+
 });
 
 router.get("/me", async (req, res, next) => {

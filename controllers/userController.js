@@ -23,6 +23,16 @@ class UserController {
     return await this.User.findOne({ where: { email: email }});
   }
 
+  async create(user) {
+    console.log(user);
+    return false;
+    if (user){
+      this.User.create(user);
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
 
 module.exports = UserController;
