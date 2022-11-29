@@ -27,10 +27,12 @@ router.post("/login", async (req, response, next) => {
     );
     if (password_valid) {
       token = jwt.sign(
-        { id: user.id, email: user.email, first_name: user.first_name },
+        { id: user.userId, email: user.email, first_name: user.first_name },
         process.env.SECRET
       );
       req.session.token = token;
+      req.session.user_id = user.userId;
+      req.session.first_name = user.first_name;
       const message = "Login Successfull";
       console.log(message);
       return response.redirect("/project");

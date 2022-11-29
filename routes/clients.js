@@ -6,7 +6,7 @@ module.exports = params => {
     const { db, clientController, projectController } = params;
 
     router.get('/', async (request, response) => {
-        const clients = await clientController.getFullDetails();
+        const clients = await clientController.getClientDetailsByUser(response.locals.user_id);
         return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients });
     });
 

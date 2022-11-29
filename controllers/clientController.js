@@ -2,7 +2,6 @@
  * Logic for fetching clients information
  */
 class ClientController {
-
   constructor(clientModel, projectModel) {
     this.Client = clientModel;
     this.Project = projectModel;
@@ -16,12 +15,26 @@ class ClientController {
   }
 
   /**
+   * Returns the list of clients for a user
+   */
+  async getClientsByUSer(id) {
+    return await this.Client.findAll({ where: { userId: id } });
+  }
+
+  /**
    * Returns a list of clients
    */
-   async getFullDetails() {
+  async getClientDetails() {
     return await this.Client.findAll({ include: this.Project });
   }
 
+    /**
+   * Returns the list of clients for a user
+   */
+     async getClientDetailsByUser(id) {
+      return await this.Client.findAll({ include: this.Project, where: { userId: id }  });
+    }
+  
   /**
    * Get client information provided an id
    * @param {*} id
