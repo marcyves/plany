@@ -65,6 +65,8 @@ db.sequelize.sync({ force: true })
     // middleware to make 'token' available to all templates
     app.use(function(req, res, next) {
       res.locals.token = req.session.token;
+      res.locals.userId = req.session.userId;
+      res.locals.first_name = req.session.first_name;
       next();
     });
     /* 

@@ -56,10 +56,18 @@
               </a>
             </li>
             <li>
-              <a href="/contact" class="nav-link text-white">
+                <% if(token) {%>
+                  <a class="nav-link text-white" href="/logout">
+                  <%} else {%>
+                <a class="nav-link text-white" href="/user/login">
+                <%}%>
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-                Contacts
-              </a>
+                <% if(token) {%>
+                  <%= first_name %> 
+                  <%} else {%>
+                  Login
+                <%}%>
+                  </a>
             </li>
           </ul>
         </div>
@@ -70,10 +78,7 @@
         <div class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
         </div>
         <div class="text-end">
-          <% if(token) {%>
-            <a class="btn btn-light text-dark me-2" href="/logout">Logout</a>
-            <%} else {%>
-          <a class="btn btn-light text-dark me-2" href="/user/login">Login</a>
+          <% if(!token) {%>
           <a class="btn btn-primary" href="/user/signup">Sign-up</a>
           <%}%>
         </div>
