@@ -5,8 +5,8 @@
             "userId": 1,
             "last_name": "Lefort",
             "first_name": "Max",
-            "email": "max@adok.info",
-            "password": "$2y$10$kDKsblRqmCIesNK3DPyKM.9rnWvd9KRdbhPZQ8BfZZ3RPUDF5TQMS",
+            "email": "max@a.info",
+            "password": "$2b$10$Ks6I4gBR3XUHTdQpQbkghuY/n5nJrRCDvufJS6rljxz2FdpxM2cF2",
             "pwdDatetime": null,
             "level": 2,
             "CMR": null
@@ -19,7 +19,7 @@
             "last_name": "Legrand",
             "first_name": "Tom",
             "email": "top@adok.info",
-            "password": "$2y$10$RfltDWx61tClmId/E12uceF38NDS2AMKwnXqNyISwRh.v69rIBmLq",
+            "password": "$2b$10$Ks6I4gBR3XUHTdQpQbkghuY/n5nJrRCDvufJS6rljxz2FdpxM2cF2",
             "pwdDatetime": null,
             "level": 1,
             "CMR": 50
@@ -32,7 +32,7 @@
             "last_name": "Dupont",
             "first_name": "Eva",
             "email": "eva@adok.info",
-            "password": "$2y$10$ED0Nzhn.Wsh2VUrMpC1IZeyycTUCxPhILVr/9jDwdVz3l8q6Z2nbq",
+            "password": "$2b$10$Ks6I4gBR3XUHTdQpQbkghuY/n5nJrRCDvufJS6rljxz2FdpxM2cF2",
             "pwdDatetime": null,
             "level": 1,
             "CMR": 40
