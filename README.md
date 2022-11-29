@@ -14,3 +14,14 @@ Plany will provide :
  * Each project is planned accross days, or hours per day
  * An Agenda view can display which and when each project is involved
 
+## How to test/use Plany ?
+
+As written before, this is still a very early stage, but if you want to give a try :
+
+ * Clone the repository
+ * `npm install`
+ * `npm run dev`
+
+ You can look in the fixtures for test data, add your own, change the database settings if you want to keep the data from one session to another. Actually, the database is stored in memory and reset at every start.
+
+
