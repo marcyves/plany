@@ -35,8 +35,9 @@ module.exports = (params) => {
   router.use("/task", checkSignIn, taskRoute(params));
   router.use("/contact", contactRoute(params));
 
-  router.use('/planning', (requete, reponse) => {
-    reponse.redirect('/client');
+  router.use('/planning', (request, response) => {
+    return response.render('layout', { pageTitle: 'Planning', template: 'Planning' });
+//    reponse.redirect('/client');
 });
   return router;
 };
