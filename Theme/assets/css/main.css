@@ -1,7 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    }
+    
 body{
-    font-family: "Gochi Hand", sans-serif;
     background-color: rgb(215, 215, 213);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    color: #18025a;
+    -webkit-font-smoothing: antialiased;
 }
+
 a{
     text-decoration: none;
 }
+
+/* Calendar */
