@@ -1,4 +1,4 @@
-const Client = require('./client');
+const Client = require('./Client');
 
 module.exports = (sequelize, DataTypes) => {
   
