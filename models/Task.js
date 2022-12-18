@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      taskName: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
