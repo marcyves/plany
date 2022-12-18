@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 
 const db = {};
 
-const logging = config.LOG === "true"?true:false;
+const logging = config.SQL_LOGGING === "true"?true:false;
 
 /*   
 
@@ -24,8 +24,8 @@ const logging = config.LOG === "true"?true:false;
 */
 
   // SQLite plus facile pour les tests
-  const database = new Sequelize('sqlite::memory', {logging: logging});
-  // const database = new Sequelize('sqlite:planner.sqlite');
+  //const database = new Sequelize('sqlite::memory', {logging: logging});
+  const database = new Sequelize('sqlite:planner.sqlite', {logging: logging});
 
   db.Sequelize = Sequelize;
   db.sequelize = database;
