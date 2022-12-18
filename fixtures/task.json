@@ -4,7 +4,7 @@
         "data": {
             "taskId": 1,
             "projectId": 1,
-            "taskName": "Group 01",
+            "name": "Group 01",
             "steps": 12
         }
     },
@@ -13,7 +13,7 @@
         "data": {
             "taskId": 2,
             "projectId": 1,
-            "taskName": "Group 02",
+            "name": "Group 02",
             "steps": 12
         }
     },
@@ -22,7 +22,7 @@
         "data": {
             "taskId": 3,
             "projectId": 1,
-            "taskName": "Group 03",
+            "name": "Group 03",
             "steps": 12
         }
     },
@@ -31,7 +31,7 @@
         "data": {
             "taskId": 4,
             "projectId": 2,
-            "taskName": "Promo 2022" ,
+            "name": "Promo 2022" ,
             "steps": 12
         }
     },
@@ -40,7 +40,7 @@
         "data": {
             "taskId": 5,
             "projectId": 2,
-            "taskName": "Cohort 1" ,
+            "name": "Cohort 1" ,
             "steps": 12
         }
     },
@@ -49,7 +49,7 @@
         "data": {
             "taskId": 6,
             "projectId": 1,
-            "taskName": "task 1" ,
+            "name": "task 1" ,
             "steps": 12
         }
     },
@@ -58,7 +58,7 @@
         "data": {
             "taskId": 7,
             "projectId": 3,
-            "taskName": "Course X",
+            "name": "Course X",
             "steps": 12
         }
     },
@@ -67,7 +67,7 @@
         "data": {
             "taskId": 8,
             "projectId": 4,
-            "taskName": "task 2",
+            "name": "task 2",
             "steps": 12
         }
     },
@@ -76,7 +76,7 @@
         "data": {
             "taskId": 9,
             "projectId": 5,
-            "taskName": "task 3",
+            "name": "task 3",
             "steps": 12
         }
     },
@@ -85,7 +85,7 @@
         "data": {
             "taskId": 10,
             "projectId": 6,
-            "taskName": "task 4",
+            "name": "task 4",
             "steps": 12
         }
     }        
