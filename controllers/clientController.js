@@ -32,7 +32,10 @@ class ClientController {
    * Returns the list of clients for a user
    */
      async getClientDetailsByUser(id) {
-      return await this.Client.findAll({ include: this.Project, where: { userId: id }  });
+      return await this.Client.findAll({ include: this.Project,
+                                           where: { userId: id },
+                                           order: [[this.Project, 'year', 'ASC']]
+                                        });
     }
   
   /**
