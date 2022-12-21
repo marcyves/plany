@@ -35,7 +35,7 @@ router.post("/login", async (req, response, next) => {
       req.session.first_name = user.first_name;
       const message = "Login Successfull";
       console.log(message);
-      return response.redirect("/project");
+      return response.redirect("/client");
 //      response.status(200).json({ token: token });
     } else {
       const message = "Password Incorrect";
