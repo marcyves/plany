@@ -37,5 +37,10 @@ module.exports = (params) => {
     return response.render('layout', { pageTitle: 'Planning', template: 'Planning' });
 //    reponse.redirect('/client');
 });
+
+  router.use('/', (requete, reponse) => {
+    reponse.render('layout', { pageTitle: "Cette page n'existe pas", template: 'erreur'});
+  });
+
   return router;
 };
