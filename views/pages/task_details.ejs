@@ -5,7 +5,7 @@
     <li class="list-group-item">Steps: <%= task.steps %></li>
     <% for( let index = 1; index <= task.steps; index++ ) { %>
       <li class="list-group-item">
-        <%= index %>: <a class="btn btn-outline-primary" href="">Plan</a>
+        <%= index %>: <a class="btn btn-outline-primary" href="/task/plan/<%= task.taskId %>/<%= index %>">Plan</a>
       </li>    
     <% } %>
   </ul>

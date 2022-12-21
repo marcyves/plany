@@ -6,24 +6,11 @@
     <ul class="list-group list-group-flush">
       <% tasks.forEach(function (task) {%>
       <li class="list-group-item">
-        <input
-          id="task_<%=task.taskId%>"
-          type="radio"
-          name="taskId"
-          value="<%=task.taskId%>"
-        />
+        <a href="/task/<%=task.taskId%>"><%=task.name%> - <%=task.steps%> steps</a>
 
-        <%=task.name%> - <%=task.steps%> steps
+        <a href="/task/delete/<%=task.taskId%>">X</a>
       </li>
       <%})%>
     </ul>
-
-    <div class="card-body">
-      <div class="btn-group" role="group" aria-label="Basic outlined example">
-        <button class="btn btn-outline-primary" name="cmd" value="details" >Details</button>
-        <button class="btn btn-outline-primary" name="cmd" value="edit">Edit</button>
-        <button class="btn btn-outline-primary" name="cmd" value="delete">Delete</button>
-      </div>
-    </div>
   </div>
 </form>
