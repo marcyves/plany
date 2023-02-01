@@ -1,9 +1,11 @@
 <div>
-	<select name="year">
-		<% years.forEach(year => { %>
-			<option value="year"><%= year %></option>		 
-		<% }) %>
-	</select>
+	<form action="/client/year/" method="get">
+		<select name="year" onchange="this.form.submit()">
+			<% years.forEach(year => { %>
+				<option value="<%= year %>"<% if(year==currentYear){%> selected<%} %>><%= year %></option>		 
+			<% }) %>
+		</select>
+	</form>
 </div>
 <div class="row row-cols-1 row-cols-md-3 g-4">
 	<% clients.forEach(function (client) {%>

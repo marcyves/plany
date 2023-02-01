@@ -6,9 +6,17 @@ module.exports = params => {
     const { db, clientController, projectController } = params;
 
     router.get('/', async (request, response) => {
-        const years = [2021, 2022];
-        const clients = await clientController.getClientDetailsByUser(response.locals.user_id);
-        return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years });
+        const years = [2021, 2022, 2023];
+        const currentYear = new Date().getFullYear();
+        const clients = await clientController.getClientDetailsByUser(response.locals.user_id, currentYear);
+        return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear });
+    });
+
+    router.get('/year/', async (request, response) => {
+        const years = [2021, 2022, 2023];
+        const currentYear = request.query.year;
+        const clients = await clientController.getClientDetailsByUser(response.locals.user_id, currentYear);
+        return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear });
     });
 
     router.get('/:id', async (request, response) => {

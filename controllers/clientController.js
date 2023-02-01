@@ -31,10 +31,13 @@ class ClientController {
     /**
    * Returns the list of clients for a user
    */
-     async getClientDetailsByUser(id) {
-      return await this.Client.findAll({ include: this.Project,
-                                           where: { userId: id },
-                                           order: [[this.Project, 'year', 'ASC']]
+     async getClientDetailsByUser(id, year) {
+      return await this.Client.findAll({ include: [{
+                                                    model: this.Project,
+                                                    where: {year: year}
+                                                  }],
+                                           where: { userId: id},
+                                           order: [[this.Project, 'name', 'ASC']]
                                         });
     }
   
