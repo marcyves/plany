@@ -19,9 +19,10 @@ Plany will provide :
 As written before, this is still a very early stage, but if you want to give a try :
 
  * Clone the repository
+ * Create .env with your configuration data (.env-dist as example)
  * `npm install`
  * `npm run dev`
 
- You can look in the fixtures for test data, add your own, change the database settings if you want to keep the data from one session to another. Actually, the database is stored in memory and reset at every start.
+ You can look in the fixtures for test data, add your own, change the database settings if you want to use MySQL or SQLite.
 
-
+ 
