@@ -4,11 +4,11 @@ const Sequelize = require("sequelize");
 const db = {};
 
 const logging = config.SQL_LOGGING === "true"?true:false;
+const production = config.VERSION === "PROD"?true:false;
 
-/*   
-
+if (production){
   // MySQL Server Configuration
-  const database = new Sequelize(config.DB, config.USER, config.PASSWORD, 
+  var database = new Sequelize(config.DB, config.USER, config.PASSWORD, 
     {
     host: config.HOST,
     dialect: config.dialect,
@@ -20,12 +20,11 @@ const logging = config.SQL_LOGGING === "true"?true:false;
       idle: config.pool.idle,
     },
   }); 
-
-*/
-
+} else {
   // SQLite plus facile pour les tests
   //const database = new Sequelize('sqlite::memory', {logging: logging});
-  const database = new Sequelize('sqlite:planner.sqlite', {logging: logging});
+  var database = new Sequelize('sqlite:planner.sqlite', {logging: logging});
+}
 
   db.Sequelize = Sequelize;
   db.sequelize = database;
@@ -34,6 +33,7 @@ const logging = config.SQL_LOGGING === "true"?true:false;
   db.client = require("./Client.js")(database, Sequelize.DataTypes);
   db.project = require("./Project.js")(database, Sequelize.DataTypes);
   db.task = require("./Task.js")(database, Sequelize.DataTypes);
+  db.planning = require("./Planning.js")(database, Sequelize.DataTypes);
 
   // Ajout des relations
   db.client.belongsTo(db.user);
