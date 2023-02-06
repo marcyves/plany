@@ -40,6 +40,9 @@ db.sequelize.sync({ force: true })
     const TaskController = require("./controllers/taskController");
     const taskController = new TaskController(db.task);
 
+    const PlanningController = require("./controllers/planningController");
+    const planningController = new PlanningController(db.task, db.project, db.planning);
+
     const routes = require("./routes");
     const { response } = require("express");
 
@@ -117,6 +120,7 @@ db.sequelize.sync({ force: true })
         clientController,
         projectController,
         taskController,
+        planningController,
       })
     );
 

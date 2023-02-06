@@ -5,6 +5,7 @@ const userRoute = require("./user");
 const clientsRoute = require("./clients");
 const projectRoute = require("./project");
 const taskRoute = require("./task");
+const planningRoute = require("./planning");
 
 module.exports = (params) => {
 
@@ -32,11 +33,7 @@ module.exports = (params) => {
   router.use("/client", checkSignIn, clientsRoute(params));
   router.use("/project", checkSignIn, projectRoute(params));
   router.use("/task", checkSignIn, taskRoute(params));
-
-  router.use('/planning', (request, response) => {
-    return response.render('layout', { pageTitle: 'Planning', template: 'Planning' });
-//    reponse.redirect('/client');
-});
+  router.use("/planning", checkSignIn, planningRoute(params));
 
   router.use('/', (requete, reponse) => {
     reponse.render('layout', { pageTitle: "Cette page n'existe pas", template: 'erreur'});
