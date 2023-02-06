@@ -23,7 +23,7 @@ if (production){
 } else {
   // SQLite plus facile pour les tests
   //const database = new Sequelize('sqlite::memory', {logging: logging});
-  var database = new Sequelize('sqlite:planner.sqlite', {logging: logging});
+  var database = new Sequelize(`sqlite:${config.DB}.sqlite`, {logging: logging});
 }
 
   db.Sequelize = Sequelize;
