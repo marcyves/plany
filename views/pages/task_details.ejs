@@ -2,10 +2,17 @@
 
 <ul class="list-group">
     <li class="list-group-item active" aria-current="true" ><%= task.name %> for <%= project.name %></li>
-    <li class="list-group-item">Steps: <%= task.steps %></li>
-    <% for( let index = 1; index <= task.steps; index++ ) { %>
+    <li class="list-group-item">There are <%= task.steps %> steps in this task</li>
+    <% let index = 0;
+       planning.forEach(function(step){%>
       <li class="list-group-item">
-        <%= index %>: <a class="btn btn-outline-primary" href="/task/plan/<%= task.taskId %>/<%= index %>">Plan</a>
+        <%= ++index %>: <%= step.startDate %> <strong><%= step.name %></strong> <%= step.duration %>
       </li>    
+    <%})%>
+
+    <% if (task.steps > index) { %>
+      <li class="list-group-item">
+      <a class="btn btn-outline-primary" href="/task/plan/<%= task.taskId %>">Plan</a>
+    </li>
     <% } %>
   </ul>

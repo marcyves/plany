@@ -1,1 +1,14 @@
-<h1>Step creation</h1>
+<h1>Planning task <%= task.taskId %></h1>
+
+<div class="mb-3">
+<form action="/task/plan/" method="post">
+    <input type="hidden" name="taskId" value="<%= task.taskId %>">
+    <label for="step_name" class="form-label">Step name</label>
+    <input type="text" name="name" id="step_name">
+    <label for="step_date" class="form-label">Date</label>
+    <input type="datetime-local" name="startDate" id="step_date">
+    <label for="step_duration" class="form-label">Duration</label>
+    <input type="text" name="duration" id="step_duration">
+    <input type="submit" value="Record">
+</form>
+</div>
