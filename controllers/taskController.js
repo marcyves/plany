@@ -16,7 +16,7 @@ class TaskController {
     return task;
   }
 
-    /**
+  /**
    * Get task details provided its id
    * @param {*} id
    */
@@ -34,6 +34,7 @@ class TaskController {
     const tasks = this.Task.findAll({ where: { projectId: id } });
     return tasks;
   }
+
 }
 
 module.exports = TaskController;
