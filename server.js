@@ -20,6 +20,7 @@ db.sequelize.sync({ force: true })
           "fixtures/client.json",
           "fixtures/project.json",
           "fixtures/task.json",
+          "fixtures/planning.json",
         ],
         db
       )
@@ -41,7 +42,7 @@ db.sequelize.sync({ force: true })
     const taskController = new TaskController(db.task);
 
     const PlanningController = require("./controllers/planningController");
-    const planningController = new PlanningController(db.task, db.project, db.planning);
+    const planningController = new PlanningController(db.task, db.planning, db.Op);
 
     const routes = require("./routes");
     const { response } = require("express");
