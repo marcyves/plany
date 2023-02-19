@@ -1,9 +1,9 @@
 const config = require("../config/db.config.js");
-const Sequelize = require("sequelize");
+const {Sequelize, Op} = require("sequelize");
 
 const db = {};
 
-const logging = config.SQL_LOGGING === "true"?true:false;
+const logging = config.LOG === "true"?true:false;
 const production = config.VERSION === "PROD"?true:false;
 
 if (production){
@@ -27,6 +27,7 @@ if (production){
 }
 
   db.Sequelize = Sequelize;
+  db.Op = Op;
   db.sequelize = database;
 
   db.user = require("./User.js")(database, Sequelize.DataTypes);
