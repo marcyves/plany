@@ -1,11 +1,10 @@
 
 class PlanningController {
 
-    constructor(taskModel, projectModel, planningModel) {
+    constructor(taskModel, planningModel, Op) {
         this.Task = taskModel;
-        this.Project = projectModel;
         this.Planning = planningModel;
-        console.log("Planning controller", taskModel, projectModel, planningModel);
+        this.Op = Op;
       }
 
     /**
@@ -17,7 +16,20 @@ class PlanningController {
                                                      order: ["startDate"]});
         return planning
     }
-   /**
+
+    /**
+     * List planning for a month
+     * @param {*} month
+     */
+    async getMonth(month){
+//      const planning = await this.Planning.findAll({ where: { startDate: {[this.Op.gte]:  month} },
+//        order: ["startDate"]});
+      const planning = await this.Planning.findAll({where: { startDate: {[this.Op.gte]:  month}}, order: ["startDate"]});
+
+      console.log(planning);
+    return planning
+  }
+  /**
    * Save task step in planning
    * @param 
    */

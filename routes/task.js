@@ -28,7 +28,6 @@ module.exports = params => {
     });
 
     router.get('/plan/:id', async (request, response) => {
-        const step = request.params.step;
 
         const { task, project } = await taskController.getFullTask(request.params.id);
         return response.render('layout', { pageTitle: 'Task Creation', template: 'task_create', task, project });

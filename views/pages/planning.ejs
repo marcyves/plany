@@ -8,3 +8,8 @@
         $("#my-calendar").zabuto_calendar();
     });
 </script>
+<ul>
+<% planning.forEach(day => {%>
+    <li><%= day.startDate %></li>
+<%});%>
+</ul>
