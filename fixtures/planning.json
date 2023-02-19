@@ -3,9 +3,40 @@
         "model": "planning",
         "data": {
             "planningId": 1,
+            "name": "Etape 1",
             "taskId": 1,
-            "startDate": "01/01/2023 08:00",
+            "startDate": "2023-01-01 10:00:00",
+            "duration": 2
+        }
+    }, 
+    {
+        "model": "planning",
+        "data": {
+            "planningId": 2,
+            "name": "Etape 2",
+            "taskId": 1,
+            "startDate": "2023-04-04 11:00:00",
             "duration": 2
         }
     },
+    {
+        "model": "planning",
+        "data": {
+            "planningId": 3,
+            "name": "Etape 3",
+            "taskId": 1,
+            "startDate": "2023-03-03 12:00:00",
+            "duration": 2
+        }
+    },
+    {
+        "model": "planning",
+        "data": {
+            "planningId": 4,
+            "name": "Etape 4",
+            "taskId": 1,
+            "startDate": "2023-01-04 13:00:00",
+            "duration": 2
+        }
+    }
 ]
