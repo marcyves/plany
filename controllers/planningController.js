@@ -22,22 +22,20 @@ class PlanningController {
      * @param {*} month
      */
     async getMonth(begin, end){
-//      const planning = await this.Planning.findAll({where: { startDate: {[this.Op.gte]:  begin}, startDate: {[this.Op.lt]:  end}}, order: ["startDate"]});
-    var condition = {
-      where: 
-      { 
-        startDate: {
-          [this.Op.between]:  [begin, end]
-//          [this.Op.gt]:  begin,
-//          [this.Op.lt]:  end
-        }
-      }, order: ["startDate"]
-    };
 
-    const planning = await this.Planning.findAll(condition);
+      var condition = {
+        where: 
+        { 
+          startDate: {
+            [this.Op.between]:  [begin, end]
+          }
+        }, order: ["startDate"]
+      };
 
-    return planning
-  }
+      const planning = await this.Planning.findAll(condition);
+
+      return planning
+    }
   /**
    * Save task step in planning
    * @param 
