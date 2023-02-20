@@ -27,8 +27,9 @@ class PlanningController {
       where: 
       { 
         startDate: {
-          [this.Op.gt]:  begin,
-          [this.Op.lt]:  end
+          [this.Op.between]:  [begin, end]
+//          [this.Op.gt]:  begin,
+//          [this.Op.lt]:  end
         }
       }, order: ["startDate"]
     };
