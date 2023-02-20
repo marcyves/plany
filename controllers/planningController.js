@@ -21,12 +21,20 @@ class PlanningController {
      * List planning for a month
      * @param {*} month
      */
-    async getMonth(month){
-//      const planning = await this.Planning.findAll({ where: { startDate: {[this.Op.gte]:  month} },
-//        order: ["startDate"]});
-      const planning = await this.Planning.findAll({where: { startDate: {[this.Op.gte]:  month}}, order: ["startDate"]});
+    async getMonth(begin, end){
+//      const planning = await this.Planning.findAll({where: { startDate: {[this.Op.gte]:  begin}, startDate: {[this.Op.lt]:  end}}, order: ["startDate"]});
+    var condition = {
+      where: 
+      { 
+        startDate: {
+          [this.Op.gt]:  begin,
+          [this.Op.lt]:  end
+        }
+      }, order: ["startDate"]
+    };
 
-      console.log(planning);
+    const planning = await this.Planning.findAll(condition);
+
     return planning
   }
   /**

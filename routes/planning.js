@@ -8,13 +8,15 @@ module.exports = params => {
     router.use('/', async (request, response) => {
 
         const today = new Date();
-        const currentMonth = ('00'+ (today.getMonth() + 1)).slice(-2);
         const currentYear = today.getFullYear();
-        const month = `${currentYear}-${currentMonth}-01T00:00:00.000Z`;
-        console.log("Router Planning month", month);
-        console.log("Router Planning today", today);
 
-        const planning = await planningController.getMonth(month);
+        const currentMonth = ('00'+ (today.getMonth() + 1)).slice(-2);
+        const beginMonth = `${currentYear}-${currentMonth}-01T00:00:00.000Z`;
+
+        const nextMonth = ('00'+ (today.getMonth() + 2)).slice(-2);
+        const endMonth = `${currentYear}-${nextMonth}-01T00:00:00.000Z`;
+
+        const planning = await planningController.getMonth(beginMonth, endMonth);
         return response.render('layout', { pageTitle: 'Planning', template: 'Planning', planning });
     });
     
