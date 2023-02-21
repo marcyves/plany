@@ -1,7 +1,7 @@
 {
-  "name": "modeles",
+  "name": "plany",
   "version": "1.0.0",
-  "description": "Démonstration modèles",
+  "description": "Planification for freelancers",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
