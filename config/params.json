@@ -1,8 +1,8 @@
 {
     "name": "My Planificator",
     "labels": { 
-        "Client": "School",
-         "Project": "Course",
-         "Task": "Group"
+        "Client": "École",
+         "Project": "Cours",
+         "Task": "Groupe"
     }
 }
