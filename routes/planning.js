@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 module.exports = params => {
     const { planningController, eventController } = params;
 
@@ -21,6 +20,7 @@ module.exports = params => {
 
         let data = [];
         events.forEach(event => {
+            console.log("new event ", event.name);
             const eventDate = new Date(event.startDate);
             if (eventDate.getMonth() == nowMth){
             const time = eventDate.getHours() + ":" + ('00'+ (eventDate.getMinutes())).slice(-2);
@@ -29,8 +29,10 @@ module.exports = params => {
         });
             
         // (A2) MONTHS & DAY NAMES
-        const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-        const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+//        const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+//        const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+        const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin","Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+        const days = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
         if(process.env.MONDAY == "true"){
             days.push(days.shift());
         }
