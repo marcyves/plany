@@ -16,14 +16,19 @@ module.exports = params => {
         const nextMonth = ('00'+ (today.getMonth() + 2)).slice(-2);
         const endMonth = `${currentYear}-${nextMonth}-01T00:00:00.000Z`;
 
-        const events = await planningController.getMonth(beginMonth, endMonth);
+        const events = await planningController.getMonthDetails(beginMonth, endMonth);
+
+        console.log(JSON.stringify(events, null, 2));
 
         let data = [];
+        let task = [];
+        let project = [];
         events.forEach(event => {
-            console.log("new event ", event.name);
             const eventDate = new Date(event.startDate);
             if (eventDate.getMonth() == nowMth){
             const time = eventDate.getHours() + ":" + ('00'+ (eventDate.getMinutes())).slice(-2);
+            project[eventDate.getDate()] = event.ProjectName;
+            task[eventDate.getDate()] = event.TaskName;
             data[eventDate.getDate()] = time + ": "+ event.name + " (" + event.duration +")";
             }
         });
@@ -73,7 +78,18 @@ module.exports = params => {
         for (let i=0; i<blanks; i++) { squares.push("b"); }
         }
 
-        return response.render('layout', { pageTitle: 'Planning', template: 'Planning', today, months, days, nowMth, squares, data});
+        return response.render('layout', { 
+            pageTitle: 'Planning',
+            template: 'Planning',
+            today, 
+            months, 
+            days, 
+            nowMth, 
+            squares,
+            task,
+            project, 
+            data
+        });
     });
     
 

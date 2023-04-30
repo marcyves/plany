@@ -58,13 +58,19 @@ body {
   font-weight: 700;
   color: #b5b5b5;
 }
+.task {
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap; text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
 .evt {
   font-size: 14px;
   white-space: nowrap; text-overflow: ellipsis;
   overflow: hidden;
   cursor: pointer;
 }
-
 /* (D) EVENT FORM */
 #calForm {
   position: absolute; top: 0; left: 0; z-index: 999;

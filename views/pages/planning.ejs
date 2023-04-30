@@ -1,50 +1,51 @@
 <h1>Planning</h1>
-     <!-- (A) PERIOD SELECTOR -->
-     <div id="calPeriod">
-        <select id="calMonth">
-        <% months.forEach((month, index) =>{%>
-          <option value="<%= index %>"<% if (index==nowMth) {%><%= "selected" %><% }%>
-          ><%= month %></option>
-        <% }); %>
-        </select>
-        <input type="number" id="calYear">
-      </div>
-  
-      <!-- (B) CALENDAR -->
-      <div id="calWrap">
-        <div class="calHead">
-          <% days.forEach(day => {%>
-            <div class="calCell"><%= day %></div>
-          <%});%>
-        </div>
-        <div class="calBody">
-          <% squares.forEach((cell, i) => {
-               if (i==0 || (i+1)%7==1) {%><div class="calRow"><%}%>
-              <div class="calCell
-              <% if (today==cell) {%> calToday<%}%>
-              <% if (cell=="b") {%> calBlank<%}%>
-              ">
-      <% if (cell!="b") {%>
+  <!-- (A) PERIOD SELECTOR -->
+  <div id="calPeriod">
+    <select id="calMonth">
+    <% months.forEach((month, index) =>{%>
+      <option value="<%= index %>"<% if (index==nowMth) {%><%= "selected" %><% }%>>
+        <%= month %>
+      </option>
+    <% }); %>
+    </select>
+    <input type="number" id="calYear">
+  </div>
+
+  <!-- (B) CALENDAR -->
+  <div id="calWrap">
+    <div class="calHead">
+      <% days.forEach(day => {%>
+        <div class="calCell"><%= day %></div>
+      <%});%>
+    </div>
+    <div class="calBody">
+    <% squares.forEach((cell, i) => {
+      if (i==0 || (i+1)%7==1) {%><div class="calRow"><%}%>
+        <div class="calCell<% if (today==cell) {%> calToday<%}%><% if (cell=="b") {%> calBlank<%}%>">
+        <% if (cell!="b") {%>
           <div class="cellDate"><%= cell %></div>
-        <% if (data[cell]) {%>
-        <div class='evt'><%= data[cell] %></div>
-      <% }
-      }%>
-              </div>
-          <% if (i!=0 && (i+1)%7==0) {%></div><%}%>
-          <% }); %>
+          <% if (data[cell]) {%>
+            <div class='task'><%= project[cell] %><br><%= task[cell] %></div>
+            <div class='evt'><%= data[cell] %></div>
+          <% }
+        }%>
         </div>
-      </div>
-  
-      <!-- (C) EVENT FORM -->
-      <dialog id="calForm"><form method="dialog">
-        <div id="evtClose">X</div>
-        <h2>CALENDAR EVENT</h2>
-        <label>Date</label>
-        <input type="text" id="evtDate" readonly>
-        <label>Details</label>
-        <textarea id="evtTxt" required></textarea>
-  
-        <input id="evtDel" type="button" value="Delete">
-        <input id="evtSave" type="submit" value="Save">
-      </form></dialog>
+        <% if (i!=0 && (i+1)%7==0) {%>
+          </div>
+        <%}%>
+      <% }); %>
+    </div>
+  </div>
+
+  <!-- (C) EVENT FORM -->
+  <dialog id="calForm"><form method="dialog">
+    <div id="evtClose">X</div>
+    <h2>CALENDAR EVENT</h2>
+    <label>Date</label>
+    <input type="text" id="evtDate" readonly>
+    <label>Details</label>
+    <textarea id="evtTxt" required></textarea>
+
+    <input id="evtDel" type="button" value="Delete">
+    <input id="evtSave" type="submit" value="Save">
+  </form></dialog>
