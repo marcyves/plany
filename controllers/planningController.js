@@ -44,25 +44,11 @@ class PlanningController {
      */
         async getMonthDetails(begin, end){
 
-          var condition = {
-            include: this.Task, 
-            where: 
-            { 
-              startDate: {
-                [this.Op.between]:  [begin, end]
-              }
-            }, order: ["startDate"]
-          };
-    
-//          const planning = await this.Planning.findAll(condition);
-
           const [planning, metadata] = await this.db.sequelize.query(
             "SELECT P.*, T.name AS TaskName, X.name AS ProjectName FROM Tasks T, Plannings P, Projects X "+
             "WHERE T.taskId = P.taskId AND T.projectID = X.projectId"+
             " AND P.startDate BETWEEN '" + begin + "' AND '" + end + "';"
           );
-          
-          
 
           return planning
         }
