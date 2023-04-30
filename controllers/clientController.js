@@ -2,42 +2,41 @@
  * Logic for fetching clients information
  */
 class ClientController {
-  constructor(clientModel, projectModel) {
-    this.Client = clientModel;
-    this.Project = projectModel;
+  constructor(db) {
+    this.db = db;
   }
 
   /**
    * Returns a list of clients
    */
   async getNames() {
-    return await this.Client.findAll();
+    return await this.db.client.findAll();
   }
 
   /**
    * Returns the list of clients for a user
    */
   async getClientsByUSer(id) {
-    return await this.Client.findAll({ where: { userId: id } });
+    return await this.db.client.findAll({ where: { userId: id } });
   }
 
   /**
    * Returns a list of clients
    */
   async getClientDetails() {
-    return await this.Client.findAll({ include: this.Project });
+    return await this.db.client.findAll({ include: this.Project });
   }
 
     /**
    * Returns the list of clients for a user
    */
      async getClientDetailsByUser(id, year) {
-      return await this.Client.findAll({ include: [{
-                                                    model: this.Project,
+      return await this.db.client.findAll({ include: [{
+                                                    model: this.db.project,
                                                     where: {year: year}
                                                   }],
                                            where: { userId: id},
-                                           order: [[this.Project, 'name', 'ASC']]
+                                           order: [[this.db.project, 'name', 'ASC']]
                                         });
     }
   
@@ -46,7 +45,7 @@ class ClientController {
    * @param {*} id
    */
   async getClient(id) {
-    const oneClient = await this.Client.findOne({ where: { clientId: id } });
+    const oneClient = await this.db.client.findOne({ where: { clientId: id } });
     return oneClient;
   }
 }

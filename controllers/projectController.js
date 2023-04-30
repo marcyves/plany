@@ -2,15 +2,15 @@
  *
  */
 class ProjectController {
-    constructor(projectModel) {
-        this.Project = projectModel;
+    constructor(db) {
+        this.db = db;
       }
 
   /**
    * Get all project details 
    */
    async getProjects() {
-    const projects = this.Project.findAll({ order:["year", "clientId"], include: this.Client });
+    const projects = this.db.project.findAll({ order:["year", "clientId"], include: this.Client });
     return projects;
   }
 
@@ -18,7 +18,7 @@ class ProjectController {
    * Get all project details 
    */
      async getProjectsByYear(year) {
-      const projects = this.Project.findAll({ order:["clientId"], include: this.Client, where: { year: year} });
+      const projects = this.db.project.findAll({ order:["clientId"], include: this.Client, where: { year: year} });
       return projects;
     }
   
@@ -28,7 +28,7 @@ class ProjectController {
    * @param {*} id
    */
   async getProject(id) {
-    const projects = this.Project.findOne({ where: { projectId: id } });
+    const projects = this.db.project.findOne({ where: { projectId: id } });
     return projects;
   }
 
@@ -37,7 +37,7 @@ class ProjectController {
    * @param {*} id
    */
   async getProjectsForClient(id) {
-    const projects = this.Project.findAll({ where: { clientId: id } });
+    const projects = this.db.project.findAll({ where: { clientId: id } });
     return projects;
   }
 }

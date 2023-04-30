@@ -3,16 +3,15 @@
  */
 class UserController {
 
-  constructor(clientModel, userModel) {
-    this.Client = clientModel;
-    this.User = userModel;
+  constructor(db) {
+    this.db = db;
   }
 
   /**
    * Returns a list of users
    */
   async getUsers() {
-    return await this.Client.findAll();
+    return await this.db.client.findAll();
   }
 
 
@@ -20,7 +19,7 @@ class UserController {
    * Returns a User
    */
    async getUser(email) {
-    return await this.User.findOne({ where: { email: email }});
+    return await this.db.user.findOne({ where: { email: email }});
   }
 
   async create(user) {

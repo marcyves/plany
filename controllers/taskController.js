@@ -2,9 +2,8 @@
  *
  */
 class TaskController {
-    constructor(taskModel, projectModel) {
-        this.Task = taskModel;
-        this.Project = projectModel;
+    constructor(db) {
+        this.db = db;
       }
 
   /**
@@ -12,7 +11,7 @@ class TaskController {
    * @param {*} id
    */
   async getTask(id) {
-    const task = await this.Task.findOne({ where: { taskId: id } });
+    const task = await this.db.task.findOne({ where: { taskId: id } });
     return task;
   }
 
@@ -21,7 +20,7 @@ class TaskController {
    * @param {*} id
    */
      async getFullTask(id) {
-      const task = await this.Task.findOne({ where: { taskId: id }, include: this.Project });
+      const task = await this.db.task.findOne({ where: { taskId: id }, include: this.Project });
       const project = await task.getProject();
         return {task, project};
     }
@@ -31,7 +30,7 @@ class TaskController {
    * @param {*} id
    */
   async getTasksForProject(id) {
-    const tasks = this.Task.findAll({ where: { projectId: id } });
+    const tasks = this.db.task.findAll({ where: { projectId: id } });
     return tasks;
   }
 

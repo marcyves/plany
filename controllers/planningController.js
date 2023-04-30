@@ -1,10 +1,11 @@
 
 class PlanningController {
 
-    constructor(taskModel, planningModel, projectModel, Op, db) {
-      this.Task = taskModel;
+    constructor(Op, db) {
+/*       this.Task = taskModel;
       this.Project = projectModel;
       this.Planning = planningModel;
+ */      
       this.Op = Op;
       this.db = db;
       }
@@ -14,7 +15,7 @@ class PlanningController {
      * @param {*} taskId
      */
     async getDetails(taskId){
-        const planning = await this.Planning.findAll({ where: { taskId: taskId },
+        const planning = await this.db.planning.findAll({ where: { taskId: taskId },
                                                      order: ["startDate"]});
         return planning
     }
@@ -34,7 +35,7 @@ class PlanningController {
         }, order: ["startDate"]
       };
 
-      const planning = await this.Planning.findAll(condition);
+      const planning = await this.db.planning.findAll(condition);
 
       return planning
     }
