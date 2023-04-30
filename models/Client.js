@@ -1,5 +1,3 @@
-const Project = require('./Project');
-
 module.exports = (sequelize, DataTypes) => {
     const Client = sequelize.define('Client', {
         clientId: {
