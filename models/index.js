@@ -46,5 +46,7 @@ if (production){
   db.task.belongsTo(db.project, {foreignKey: 'projectId'});
   db.project.hasMany(db.task, {foreignKey: 'projectId'});
 
+  db.planning.belongsTo(db.task, {foreignKey: 'taskId'});
+  db.task.hasMany(db.planning, {foreignKey: 'taskId'});
 
 module.exports = db;
