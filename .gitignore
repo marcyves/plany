@@ -102,6 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+# project specific
 .DS_Store
 *.sqlite
 config/params.json
