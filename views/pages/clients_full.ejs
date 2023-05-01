@@ -7,25 +7,87 @@
 		</select>
 	</form>
 </div>
-<div class="row row-cols-1 row-cols-md-3 g-4">
-	<% clients.forEach(function (client) {%>
-		<div class="col">
-			<div class="card-body card h-100" style="width: 18rem">
-				<h5 class="card-title">
-					<a href="client/<%=client.clientId%>">
-						<%=client.name%> (<%=client.defaultRate.toFixed(2).padStart(5,'0')%>€)
-					</a>
-				</h5>
-				<ul class="list-group list-group-flush">
-					<% client.Projects.forEach(function (project) { %>
-						<li class="list-group-item">
-							<a href="/project/<%=project.projectId%>">
-								<%= project.name %>								
-							</a> - <%= project.year %>
-						</li>
-						<% }) %>
-				</ul>
-			</div>
-		</div>
-		<%})%>
-</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Ecole</th>
+			<th scope="col">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%  let total_budget = 0;
+			clients.forEach(function (client) {%>
+		<tr class="table-primary">
+			<td>
+				<a href="client/<%=client.clientId%>">
+				<%=client.name%> (<%=client.defaultRate.toFixed(2).padStart(5,'0')%>€)
+				</a>
+			</td>
+			<td>
+				<table class="table-light">
+					<% let client_budget = 0;
+						client.Projects.forEach(function (project) { %>
+						<tr>
+							<td>
+								<a href="/project/<%=project.projectId%>">
+									<%= project.name %>								
+								</a>
+							</td>
+							<td>
+								<%= project.budget.toFixed(2).padStart(5,'0')%>€	
+							</td>
+							<td>
+								<%= project.year %>	
+							</td>
+						</tr>
+					<% 
+						client_budget += project.budget;
+					}) %>
+					<tr class="table-secondary">
+						<td>
+							Total
+						</td>
+						<td>
+							<%= client_budget.toFixed(2).padStart(5,'0')%>€
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="/project/create">New course</a>
+						</td>
+					</tr>				
+				</table>
+			</td>
+		</tr>
+		<%
+		total_budget += client_budget;
+		})%>
+		<tr class="table-primary">
+			<td>
+				Total Budget
+			</td>
+			<td>
+				<%=total_budget.toFixed(2).padStart(5,'0')%>€
+			</td>	
+		</tr>
+		<tr>
+			<th>
+				<select onChange="addClient()" name="client" id="client_id">
+					<% all_clients.forEach(client => {%>
+						<option value="<%= client.clientId%>"><%= client.name%></option>
+					<% });%>		
+				</select>
+				<script>
+					function addClient(){
+						let id = document.getElementById("client_id").value
+						window.location.href = "/client/add/"+id;
+					}
+				</script>
+			</th>
+			<td>
+
+			</td>
+		</tr>
+	</tbody>
+</table>
+
