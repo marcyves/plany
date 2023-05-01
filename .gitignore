@@ -106,3 +106,4 @@ dist
 *.sqlite
 config/params.json
 fixtures/client.json
+fixtures/project.json
