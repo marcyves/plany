@@ -42,7 +42,7 @@ db.sequelize.sync({ force: true })
     const taskController = new TaskController(db);
 
     const PlanningController = require("./controllers/planningController");
-    const planningController = new PlanningController(db.Op, db);
+    const planningController = new PlanningController(db);
 
     const routes = require("./routes");
     const { response } = require("express");

@@ -1,12 +1,8 @@
 
 class PlanningController {
 
-    constructor(Op, db) {
-/*       this.Task = taskModel;
-      this.Project = projectModel;
-      this.Planning = planningModel;
- */      
-      this.Op = Op;
+    constructor(db) {
+      this.Op = db.Op;
       this.db = db;
       }
 
