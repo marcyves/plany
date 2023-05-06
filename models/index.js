@@ -1,8 +1,6 @@
 const config = require("../config/db.config.js");
 const {Sequelize, Op} = require("sequelize");
 
-const db = {};
-
 const logging = config.LOG === "true"?true:false;
 const production = config.VERSION === "PROD"?true:false;
 
@@ -26,27 +24,29 @@ if (production){
   var database = new Sequelize(`sqlite:${config.DB}.sqlite`, {logging: logging});
 }
 
-  db.Sequelize = Sequelize;
-  db.Op = Op;
-  db.sequelize = database;
+const db = {};
 
-  db.user = require("./User.js")(database, Sequelize.DataTypes);
-  db.client = require("./Client.js")(database, Sequelize.DataTypes);
-  db.project = require("./Project.js")(database, Sequelize.DataTypes);
-  db.task = require("./Task.js")(database, Sequelize.DataTypes);
-  db.planning = require("./Planning.js")(database, Sequelize.DataTypes);
+db.Sequelize = Sequelize;
+db.sequelize = database;
+db.Op = Op;
 
-  // Ajout des relations
-  db.client.belongsTo(db.user);
-  db.user.hasMany(db.client, {foreignKey: 'userId'});
+db.user = require("./User.js")(database, Sequelize.DataTypes);
+db.client = require("./Client.js")(database, Sequelize.DataTypes);
+db.project = require("./Project.js")(database, Sequelize.DataTypes);
+db.task = require("./Task.js")(database, Sequelize.DataTypes);
+db.planning = require("./Planning.js")(database, Sequelize.DataTypes);
 
-  db.project.belongsTo(db.client);
-  db.client.hasMany(db.project, {foreignKey: 'clientId'});
+// Ajout des relations
+db.client.belongsTo(db.user);
+db.user.hasMany(db.client, {foreignKey: 'userId'});
 
-  db.task.belongsTo(db.project, {foreignKey: 'projectId'});
-  db.project.hasMany(db.task, {foreignKey: 'projectId'});
+db.project.belongsTo(db.client);
+db.client.hasMany(db.project, {foreignKey: 'clientId'});
 
-  db.planning.belongsTo(db.task, {foreignKey: 'taskId'});
-  db.task.hasMany(db.planning, {foreignKey: 'taskId'});
+db.task.belongsTo(db.project, {foreignKey: 'projectId'});
+db.project.hasMany(db.task, {foreignKey: 'projectId'});
+
+db.planning.belongsTo(db.task, {foreignKey: 'taskId'});
+db.task.hasMany(db.planning, {foreignKey: 'taskId'});
 
 module.exports = db;

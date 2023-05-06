@@ -1,18 +1,17 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const { config } = require('dotenv');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
 // Data base
 const sequelize_fixtures = require("sequelize-fixtures");
 const db = require("./models");
+
 db.sequelize.sync({ force: true })
   .then(() => {
     console.log("== Data Base Loaded");
     // Import test data
-    //
     sequelize_fixtures
       .loadFiles(
         [
