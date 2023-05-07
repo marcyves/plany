@@ -3,9 +3,12 @@ module.exports = (app) => {
     const router = express.Router();
     const clientController = require("../controllers/clientController.js");
 
+    router.get('/', (req, res) => {
+        res.redirect('/client/year');
+    });
     router.get('/year/', clientController.RouteByYear);
     router.get('/:id', clientController.RouteById);
-  
+
     function checkSignIn(req, res, next){
         if(req.session.token){
            next();     //If session exists, proceed to page

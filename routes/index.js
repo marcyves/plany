@@ -20,10 +20,6 @@ module.exports = (params) => {
   router.get('/', (req, res) => {
     res.redirect('/client/year');
   });
-  
-  router.get('/client', (req, res) => {
-    res.redirect('/client/year');
-  });
 
   router.get('/logout', function(req, res){
     req.session.destroy(function(){
