@@ -1,7 +1,5 @@
 const db = require("../models");
 const Client = db.client;
-const Op = db.Sequelize.Op;
-
 
 const projectController = require("../controllers/projectController.js");
 const TaskController = require("../controllers/taskController.js");
@@ -50,6 +48,10 @@ exports.getClient = (id) => {
   return Client.findOne({ where: { clientId: id } });
 }
 
+/**
+ * 
+ * @returns 
+ */
 exports.RouteByYear = async (request, response) => {
     const years = [2021, 2022, 2023];
 
