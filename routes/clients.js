@@ -1,41 +1,20 @@
-const express = require('express');
-const router = express.Router();
+module.exports = (app) => {
+    const express = require('express');
+    const router = express.Router();
+    const clientController = require("../controllers/clientController.js");
 
-
-module.exports = params => {
-    const { db, clientController, projectController } = params;
-
-    router.get('/', async (request, response) => {
-        const years = [2021, 2022, 2023];
-        const currentYear = new Date().getFullYear();
-        const clients = await clientController.getClientDetailsByUser(response.locals.user_id, currentYear);
-        const all_clients = await clientController.getNames();
-
-        return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear, all_clients });
-    });
-
-    router.get('/year/', async (request, response) => {
-        const years = [2021, 2022, 2023];
-        const currentYear = request.query.year;
-        const clients = await clientController.getClientDetailsByUser(response.locals.user_id, currentYear);
-        const all_clients = await clientController.getNames();
-
-        return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear, all_clients });
-    });
-
-    router.get('/:id', async (request, response) => {
-
-        const client_details = await clientController.getClient(request.params.id);
-
-        if (client_details){
-            const projects = await projectController.getProjectsForClient(request.params.id);
-            return response.render('layout', { pageTitle: 'Client Details', template: 'client_details', client_details, projects});    
-        } else {
-            return response.render('layout', { pageTitle: 'Lost', template: '404' });
-        }
-
-    });
-
-   return router;
-};
+    router.get('/year/', clientController.RouteByYear);
+    router.get('/:id', clientController.RouteById);
   
+    function checkSignIn(req, res, next){
+        if(req.session.token){
+           next();     //If session exists, proceed to page
+        } else {
+          // Trying to access unauthorized page, redirect to login
+          res.redirect('/user/login');
+        }
+     }
+  
+      app.use('/client', checkSignIn, router);
+ 
+};

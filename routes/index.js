@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const userRoute = require("./user");
-const clientsRoute = require("./clients");
 const projectRoute = require("./project");
 const taskRoute = require("./task");
 const planningRoute = require("./planning");
@@ -19,7 +18,11 @@ module.exports = (params) => {
  }
 
   router.get('/', (req, res) => {
-    res.redirect('/client');
+    res.redirect('/client/year');
+  });
+  
+  router.get('/client', (req, res) => {
+    res.redirect('/client/year');
   });
 
   router.get('/logout', function(req, res){
@@ -30,7 +33,6 @@ module.exports = (params) => {
  });
 
   router.use("/user", userRoute(params));
-  router.use("/client", checkSignIn, clientsRoute(params));
   router.use("/project", checkSignIn, projectRoute(params));
   router.use("/task", checkSignIn, taskRoute(params));
   router.use("/planning", checkSignIn, planningRoute(params));

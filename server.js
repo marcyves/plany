@@ -31,15 +31,12 @@ db.sequelize.sync({ force: true })
     const UserController = require("./controllers/userController");
     const userController = new UserController(db);
 
-    const ClientController = require("./controllers/clientController");
-    const clientController = new ClientController(db);
-
     const ProjectController = require("./controllers/projectController");
     const projectController = new ProjectController(db);
 
     const TaskController = require("./controllers/taskController");
     const taskController = new TaskController(db);
-
+  
     const PlanningController = require("./controllers/planningController");
     const planningController = new PlanningController(db);
 
@@ -112,22 +109,23 @@ db.sequelize.sync({ force: true })
       }
     );
 
+    require('./routes/clients')(app);
+
     app.use(
       "/",
       routes({
         db,
         userController,
-        clientController,
         projectController,
         taskController,
         planningController,
       })
     );
-
-    app.listen(port, () => {
+  
+   app.listen(port, () => {
       console.log(`Le projet est démarré sur http://localhost:${port}`);
     });
   })
   .catch((error) => {
-    console.error(`*** Erreur :\n*** ${error}`);
+    console.error(`*** Server Error :\n*** ${error}`);
   });

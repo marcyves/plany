@@ -1,53 +1,84 @@
+const db = require("../models");
+const Client = db.client;
+const Op = db.Sequelize.Op;
+
+
+const projectController = require("../controllers/projectController.js");
+const TaskController = require("../controllers/taskController.js");
+const taskController = new TaskController(db);
+
 /**
- * Logic for fetching clients information
+ * Returns a list of clients
  */
-class ClientController {
-  constructor(db) {
-    this.db = db;
-  }
-
-  /**
-   * Returns a list of clients
-   */
-  async getNames() {
-    return await this.db.client.findAll();
-  }
-
-  /**
-   * Returns the list of clients for a user
-   */
-  async getClientsByUSer(id) {
-    return await this.db.client.findAll({ where: { userId: id } });
-  }
-
-  /**
-   * Returns a list of clients
-   */
-  async getClientDetails() {
-    return await this.db.client.findAll({ include: this.Project });
-  }
-
-    /**
-   * Returns the list of clients for a user
-   */
-     async getClientDetailsByUser(id, year) {
-      return await this.db.client.findAll({ include: [{
-                                                    model: this.db.project,
-                                                    where: {year: year}
-                                                  }],
-                                           where: { userId: id},
-                                           order: [[this.db.project, 'name', 'ASC']]
-                                        });
-    }
-  
-  /**
-   * Get client information provided an id
-   * @param {*} id
-   */
-  async getClient(id) {
-    const oneClient = await this.db.client.findOne({ where: { clientId: id } });
-    return oneClient;
-  }
+exports.getNames = (req, res) => {
+  return Client.findAll();
 }
 
-module.exports = ClientController;
+/**
+ * Returns the list of clients for a user
+ */
+exports.getClientsByUser = (id) => {
+  return Client.findAll({ where: { userId: id } });
+}
+
+/**
+ * Returns a list of clients
+ */
+exports.getClientDetails = (req, res) => {
+  return Client.findAll({ include: this.Project });
+}
+
+/**
+ * Returns the list of clients for a user
+ */
+exports.getClientDetailsByUser = (id, year) => {
+
+    return Client.findAll({ include: [{
+                                        model: db.project,
+                                        where: {year: year}
+                                      }],
+                                      where: { userId: id},
+                                      order: [[db.project, 'name', 'ASC']]
+                          });
+}
+
+/**
+ * Get client information provided an id
+ * @param {*} id
+ */
+exports.getClient = (id) => {
+  return Client.findOne({ where: { clientId: id } });
+}
+
+exports.RouteByYear = async (request, response) => {
+    const years = [2021, 2022, 2023];
+
+    if(request.query.year)
+    {
+        var currentYear = request.query.year;
+    }else{
+        var currentYear = new Date().getFullYear();
+    }
+
+    const clients = await this.getClientDetailsByUser(response.locals.user_id, currentYear);
+    const tasks = await taskController.getTasks();
+    const all_clients = await this.getNames();
+
+    return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear, all_clients, tasks });
+}
+
+/**
+ * 
+ */
+exports.RouteById = async (request, response) => {
+
+  const client_details = await clientController.getClient(request.params.id);
+
+  if (client_details){
+      const projects = await projectController.getProjectsForClient(request.params.id);
+      return response.render('layout', { pageTitle: 'Client Details', template: 'client_details', client_details, projects});    
+  } else {
+      return response.render('layout', { pageTitle: 'Lost', template: '404' });
+  }
+
+}
