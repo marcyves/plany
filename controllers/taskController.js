@@ -4,7 +4,15 @@
 class TaskController {
     constructor(db) {
         this.db = db;
-      }
+    }
+
+  /**
+   * Get all project details 
+   */
+   async getTasks() {
+    const tasks = this.db.task.findAll();
+    return tasks;
+  }
 
   /**
    * Get task details provided its id
