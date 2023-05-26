@@ -1,7 +1,8 @@
 const db = require("../models");
 const Client = db.client;
 
-const projectController = require("../controllers/projectController.js");
+const ProjectController = require("../controllers/projectController.js");
+const projectController = new ProjectController(db);
 const TaskController = require("../controllers/taskController.js");
 const taskController = new TaskController(db);
 
@@ -74,7 +75,7 @@ exports.RouteByYear = async (request, response) => {
  */
 exports.RouteById = async (request, response) => {
 
-  const client_details = await clientController.getClient(request.params.id);
+  const client_details = await this.getClient(request.params.id);
 
   if (client_details){
       const projects = await projectController.getProjectsForClient(request.params.id);
