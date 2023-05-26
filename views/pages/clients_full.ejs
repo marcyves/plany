@@ -19,7 +19,7 @@
 			clients.forEach(function (client) {%>
 		<tr class="table-primary">
 			<td>
-				<a href="client/<%=client.clientId%>">
+				<a href="/client/<%=client.clientId%>">
 				<%=client.name%> (<%=client.defaultRate.toFixed(2).padStart(5,'0')%>€)
 				</a>
 			</td>
