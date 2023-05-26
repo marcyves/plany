@@ -20,6 +20,10 @@ As written before, this is still a very early stage, but if you want to give a t
 
  * Clone the repository
  * Create .env with your configuration data (.env-dist as example)
+    * Database is selected according to version:
+    - dev is SQLite
+    - prod is MySQL
+    - planetScale is... [planetScale](https://planetscale.com)  
  * `npm install`
  * `npm run dev`
 
