@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 module.exports = params => {
     const taskController = require("../controllers/taskController.js");
 
@@ -12,7 +11,7 @@ module.exports = params => {
         return response.render('layout', { pageTitle: 'My Projects', template: 'projects_all', projects });
     });
 
-    router.get('/:id', async (request, response) => {
+    router.get('/:id([0-9]+)', async (request, response) => {
         const project = await projectController.getProject(request.params.id);
         const tasks = await taskController.getTasksForProject(request.params.id);
         return response.render('layout', { pageTitle: 'Project Details', template: 'project_details', project, tasks });
