@@ -1,3 +1,5 @@
+import {checkSignIn} from '../config/myLib';
+
 module.exports = (app) => {
   const express = require("express");
   const router = express.Router();
@@ -14,15 +16,6 @@ module.exports = (app) => {
             case "edit":
                 return response.render('layout', { pageTitle: 'Task Modification', template: 'task_edit', task, project });
          */
-
-  function checkSignIn(req, res, next) {
-    if (req.session.token) {
-      next(); //If session exists, proceed to page
-    } else {
-      // Trying to access unauthorized page, redirect to login
-      res.redirect("/user/login");
-    }
-  }
 
   app.use("/task", checkSignIn, router);
 
