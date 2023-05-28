@@ -3,7 +3,9 @@ const router = express.Router();
 
 
 module.exports = params => {
-    const { db, clientController, projectController, taskController } = params;
+    const taskController = require("../controllers/taskController.js");
+
+    const { db, clientController, projectController} = params;
 
     router.get('/', async (request, response) => {
         const projects = await projectController.getProjects();
