@@ -11,7 +11,7 @@
 	<thead>
 		<tr>
 			<th scope="col">Ecole</th>
-			<th scope="col">Description</th>
+			<th scope="col">Course List</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -71,7 +71,7 @@
 			</td>	
 		</tr>
 		<tr>
-			<th>
+			<th>School List
 				<select onChange="addClient()" name="client" id="client_id">
 					<% all_clients.forEach(client => {%>
 						<option value="<%= client.clientId%>"><%= client.name%></option>
