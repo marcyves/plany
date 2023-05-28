@@ -3,7 +3,6 @@ const router = express.Router();
 
 const userRoute = require("./user");
 const projectRoute = require("./project");
-const taskRoute = require("./task");
 
 module.exports = (params) => {
 
@@ -29,7 +28,6 @@ module.exports = (params) => {
 
   router.use("/user", userRoute(params));
   router.use("/project", checkSignIn, projectRoute(params));
-  router.use("/task", checkSignIn, taskRoute(params));
 
   router.use('/', (requete, reponse) => {
     reponse.render('layout', { pageTitle: "Cette page n'existe pas", template: 'erreur'});

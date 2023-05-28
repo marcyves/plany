@@ -3,8 +3,7 @@ const Client = db.client;
 
 const ProjectController = require("../controllers/projectController.js");
 const projectController = new ProjectController(db);
-const TaskController = require("../controllers/taskController.js");
-const taskController = new TaskController(db);
+const taskController = require("../controllers/taskController.js");
 
 /**
  * Returns a list of clients

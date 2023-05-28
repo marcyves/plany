@@ -1,16 +1,15 @@
-/**
- *
- */
-class TaskController {
-    constructor(db) {
-        this.db = db;
-    }
+const db = require("../models");
+const Task = db.task;
+const Project = db.project;
 
-  /**
+const planningController = require("../controllers/planningController.js");
+
+
+/**
    * Get all project details 
    */
-   async getTasks() {
-    const tasks = this.db.task.findAll();
+   exports.getTasks = async () => {
+    const tasks = Task.findAll();
     return tasks;
   }
 
@@ -18,8 +17,8 @@ class TaskController {
    * Get task details provided its id
    * @param {*} id
    */
-  async getTask(id) {
-    const task = await this.db.task.findOne({ where: { taskId: id } });
+  exports.getTask = async (id) => {
+    const task = await Task.findOne({ where: { taskId: id } });
     return task;
   }
 
@@ -27,8 +26,8 @@ class TaskController {
    * Get task details provided its id
    * @param {*} id
    */
-     async getFullTask(id) {
-      const task = await this.db.task.findOne({ where: { taskId: id }, include: this.Project });
+     exports.getFullTask = async (id) => {
+      const task = await Task.findOne({ where: { taskId: id }, include: Project });
       const project = await task.getProject();
         return {task, project};
     }
@@ -37,11 +36,34 @@ class TaskController {
    * Get All tasks information from Client provided their id
    * @param {*} id
    */
-  async getTasksForProject(id) {
-    const tasks = this.db.task.findAll({ where: { projectId: id } });
+  exports.getTasksForProject = async (id) => {
+    const tasks = Task.findAll({ where: { projectId: id } });
     return tasks;
   }
 
-}
+exports.routeDetails = async (request, response) => {
 
-module.exports = TaskController;
+  const { task, project } = await this.getFullTask(request.params.id);
+  const planning = await planningController.getDetails(request.params.id);
+
+  return response.render('layout', { pageTitle: 'Task Details', template: 'task_details', task, project, planning });
+};
+
+exports.routeDelete = async (request, response) => {
+  return response.render('layout', { pageTitle: 'Task Delete', template: 'task_delete' });
+};
+
+exports.routePlan =  async (request, response) => {
+
+  const id = await planningController.save(request.body);
+  const { task, project } = await this.getFullTask(id);
+  const planning = await planningController.getDetails(id);
+
+  return response.render('layout', { pageTitle: 'Task Details', template: 'task_details', task, project, planning });
+};
+
+exports.routePlanById = async (request, response) => {
+
+  const { task, project } = await this.getFullTask(request.params.id);
+  return response.render('layout', { pageTitle: 'Task Creation', template: 'task_create', task, project });
+};

@@ -33,9 +33,6 @@ db.sequelize.sync({ force: true })
 
     const ProjectController = require("./controllers/projectController");
     const projectController = new ProjectController(db);
-
-    const TaskController = require("./controllers/taskController");
-    const taskController = new TaskController(db);
   
     const routes = require("./routes");
     const { response } = require("express");
@@ -108,6 +105,7 @@ db.sequelize.sync({ force: true })
 
     require('./routes/clients')(app);
     require('./routes/planning')(app);
+    require('./routes/task')(app);
 
     app.use(
       "/",
@@ -115,7 +113,6 @@ db.sequelize.sync({ force: true })
         db,
         userController,
         projectController,
-        taskController,
       })
     );
   
