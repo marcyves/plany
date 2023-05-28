@@ -1,7 +1,7 @@
 const config = require("../config/db.config.js");
 const { Sequelize, Op } = require("sequelize");
 
-const logging = config.SQL_LOGGING === "true" ? true : false;
+const logging = config.SQL_LOGGING === "true" ? console.log : false;
 const version = config.VERSION;
 
 switch (version) {
