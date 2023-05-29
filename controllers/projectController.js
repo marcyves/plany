@@ -1,6 +1,8 @@
 const db = require("../models");
 const Project = db.project;
 
+const taskController = require("../controllers/taskController.js");
+
 /**
  * Get all project details
  */
@@ -48,5 +50,16 @@ exports.routeList = async (request, response) => {
     pageTitle: "My Projects",
     template: "projects_all",
     projects,
+  });
+};
+
+exports.routeDetails = async (request, response) => {
+  const project = await this.getProject(request.params.id);
+  const tasks = await taskController.getTasksForProject(request.params.id);
+  return response.render("layout", {
+    pageTitle: "Project Details",
+    template: "project_details",
+    project,
+    tasks,
   });
 };
