@@ -1,45 +1,52 @@
+const db = require("../models");
+const Project = db.project;
+
 /**
- *
+ * Get all project details
  */
-class ProjectController {
-    constructor(db) {
-        this.db = db;
-      }
+exports.getProjects = async () => {
+  const projects = Project.findAll({
+    order: ["year", "clientId"],
+    include: this.Client,
+  });
+  return projects;
+};
 
-  /**
-   * Get all project details 
-   */
-   async getProjects() {
-    const projects = this.db.project.findAll({ order:["year", "clientId"], include: this.Client });
-    return projects;
-  }
+/**
+ * Get all project details
+ */
+exports.getProjectsByYear = async (year) => {
+  const projects = Project.findAll({
+    order: ["clientId"],
+    include: this.Client,
+    where: { year: year },
+  });
+  return projects;
+};
 
-    /**
-   * Get all project details 
-   */
-     async getProjectsByYear(year) {
-      const projects = this.db.project.findAll({ order:["clientId"], include: this.Client, where: { year: year} });
-      return projects;
-    }
-  
-  
-   /**
-   * Get project details provided its id
-   * @param {*} id
-   */
-  async getProject(id) {
-    const projects = this.db.project.findOne({ where: { projectId: id } });
-    return projects;
-  }
+/**
+ * Get project details provided its id
+ * @param {*} id
+ */
+exports.getProject = async (id) => {
+  const projects = Project.findOne({ where: { projectId: id } });
+  return projects;
+};
 
-  /**
-   * Get All projects information from Client provided their id
-   * @param {*} id
-   */
-  async getProjectsForClient(id) {
-    const projects = this.db.project.findAll({ where: { clientId: id } });
-    return projects;
-  }
-}
+/**
+ * Get All projects information from Client provided their id
+ * @param {*} id
+ */
+exports.getProjectsForClient = async (id) => {
+  const projects = Project.findAll({ where: { clientId: id } });
+  return projects;
+};
 
-module.exports = ProjectController;
+exports.routeList = async (request, response) => {
+  const projects = await this.getProjects();
+  return response.render("layout", {
+    pageTitle: "My Projects",
+    template: "projects_all",
+    projects,
+  });
+};
