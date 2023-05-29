@@ -32,7 +32,6 @@ db.sequelize.sync({ force: true })
     const userController = new UserController(db);
 
     const routes = require("./routes");
-    const { response } = require("express");
 
     const app = express();
     const port = parseInt(process.env.PORT) || 3000;
@@ -53,7 +52,7 @@ db.sequelize.sync({ force: true })
         saveUninitialized: true
     }));
 
-    // middleware to make 'token' available to all templates
+    // middleware to make variables available to all templates
     app.use(function(req, res, next) {
       res.locals.token = req.session.token;
       res.locals.user_id = req.session.user_id;
