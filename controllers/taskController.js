@@ -67,3 +67,10 @@ exports.routePlanById = async (request, response) => {
   const { task, project } = await this.getFullTask(request.params.id);
   return response.render('layout', { pageTitle: 'Task Creation', template: 'task_create', task, project });
 };
+
+  /* TODO 
+            case "details":
+                return response.render('layout', { pageTitle: 'Task Details', template: 'task_details', task, project });
+            case "edit":
+                return response.render('layout', { pageTitle: 'Task Modification', template: 'task_edit', task, project });
+         */

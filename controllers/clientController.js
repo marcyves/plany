@@ -1,8 +1,7 @@
 const db = require("../models");
 const Client = db.client;
 
-const ProjectController = require("../controllers/projectController.js");
-const projectController = new ProjectController(db);
+const projectController = require("../controllers/projectController.js");
 const taskController = require("../controllers/taskController.js");
 
 /**
@@ -53,6 +52,7 @@ exports.getClient = (id) => {
  * @returns 
  */
 exports.RouteByYear = async (request, response) => {
+
     const years = [2021, 2022, 2023];
 
     if(request.query.year)
@@ -61,6 +61,7 @@ exports.RouteByYear = async (request, response) => {
     }else{
         var currentYear = new Date().getFullYear();
     }
+    console.log(`=== Preparing route for ${currentYear}`);
 
     const clients = await this.getClientDetailsByUser(response.locals.user_id, currentYear);
     const tasks = await taskController.getTasks();
