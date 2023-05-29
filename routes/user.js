@@ -33,8 +33,8 @@ router.post("/login", async (req, response, next) => {
       req.session.token = token;
       req.session.user_id = user.userId;
       req.session.first_name = user.first_name;
-      const message = "Login Successfull";
-      console.log(message);
+
+      console.log(`Login Successfull for ${user.first_name} (${user.userId})`);
       return response.redirect("/client");
 //      response.status(200).json({ token: token });
     } else {
@@ -51,7 +51,7 @@ router.post("/login", async (req, response, next) => {
 });
 
 router.get("/signup", function (req, response, next) {
-    const message = "";
+    const message = "Welcome";
     return response.render('layout', { pageTitle: 'Sign Up', template: 'signup', message });
 });
 
