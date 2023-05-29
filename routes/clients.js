@@ -1,4 +1,4 @@
-import {checkSignIn} from '../config/myLib';
+const myLib = require("../config/myLib");
 
 module.exports = (app) => {
     const express = require('express');
@@ -11,6 +11,5 @@ module.exports = (app) => {
     router.get('/year/', clientController.RouteByYear);
     router.get('/:id', clientController.RouteById);
   
-      app.use('/client', checkSignIn, router);
- 
+    return router;
 };
