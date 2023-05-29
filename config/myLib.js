@@ -1,4 +1,4 @@
-function checkSignIn(req, res, next){
+module.exports.checkSignIn = function (req, res, next){
     if(req.session.token){
        next();     //If session exists, proceed to page
     } else {
@@ -6,6 +6,3 @@ function checkSignIn(req, res, next){
       res.redirect('/user/login');
     }
  }
-
-
- export {checkSignIn};
