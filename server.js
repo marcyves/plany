@@ -31,9 +31,6 @@ db.sequelize.sync({ force: true })
     const UserController = require("./controllers/userController");
     const userController = new UserController(db);
 
-    const ProjectController = require("./controllers/projectController");
-    const projectController = new ProjectController(db);
-  
     const routes = require("./routes");
     const { response } = require("express");
 
@@ -103,16 +100,11 @@ db.sequelize.sync({ force: true })
       }
     );
 
-    require('./routes/clients')(app);
-    require('./routes/planning')(app);
-    require('./routes/task')(app);
-
     app.use(
       "/",
       routes({
         db,
         userController,
-        projectController,
       })
     );
   

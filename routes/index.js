@@ -1,36 +1,38 @@
 const express = require("express");
 const router = express.Router();
 
-const userRoute = require("./user");
+const clients = require("./clients");
+const planning = require("./planning");
+const task = require("./task");
 const projectRoute = require("./project");
+const userRoute = require("./user");
+
+const myLib = require("../config/myLib");
 
 module.exports = (params) => {
 
-  function checkSignIn(req, res, next){
-    if(req.session.token){
-       next();     //If session exists, proceed to page
-    } else {
-      // Trying to access unauthorized page, redirect to login
-      res.redirect('/user/login');
-    }
- }
-
-  router.get('/', (req, res) => {
-    res.redirect('/client/year');
+  router.get("/", (req, res) => {
+    res.redirect("/client/year");
   });
 
-  router.get('/logout', function(req, res){
-    req.session.destroy(function(){
-       console.log("user logged out.")
+  router.get("/logout", function (req, res) {
+    req.session.destroy(function () {
+      console.log("user logged out.");
     });
-    res.redirect('/user/login');
- });
+    res.redirect("/user/login");
+  });
 
+  router.use("/client", myLib.checkSignIn, clients(params.db));
+  router.use("/planning", myLib.checkSignIn, planning(params.db));
+  router.use("/task", myLib.checkSignIn, task(params.db));
   router.use("/user", userRoute(params));
-  router.use("/project", checkSignIn, projectRoute(params));
+  router.use("/project", myLib.checkSignIn, projectRoute(params));
 
-  router.use('/', (requete, reponse) => {
-    reponse.render('layout', { pageTitle: "Cette page n'existe pas", template: 'erreur'});
+  router.use("/", (requete, reponse) => {
+    reponse.render("layout", {
+      pageTitle: "Cette page n'existe pas",
+      template: "erreur",
+    });
   });
 
   return router;
