@@ -66,12 +66,21 @@ db.planning = require("./Planning.js")(database, Sequelize.DataTypes);
   db.task.hasMany(db.planning, { foreignKey: "taskId", constraints: false, });
 
 } else {
-  db.client.belongsTo(db.user);
-  db.project.belongsTo(db.client);
+//  db.client.belongsTo(db.user);
+  db.client.belongsToMany(db.user, {
+    through: "client_user",
+    as: "users",
+    foreignKey: "clientId",
+  });
+  db.project.belongsTo(db.client, { foreignKey: "clientId" });
   db.task.belongsTo(db.project, { foreignKey: "projectId" });
   db.planning.belongsTo(db.task, { foreignKey: "taskId" });
 
-  db.user.hasMany(db.client, { foreignKey: "userId" });
+  db.user.belongsToMany(db.client, {
+    through: "client_user",
+    as: "Clients",
+    foreignKey: "userId",
+  });
   db.client.hasMany(db.project, { foreignKey: "clientId" });
   db.project.hasMany(db.task, { foreignKey: "projectId" });
   db.task.hasMany(db.planning, { foreignKey: "taskId" });
