@@ -1,7 +1,9 @@
 const db = require("../models");
 const Project = db.project;
+const Client = db.client;
 
 const taskController = require("../controllers/taskController.js");
+const { response } = require("express");
 
 /**
  * Get all project details
@@ -9,7 +11,7 @@ const taskController = require("../controllers/taskController.js");
 exports.getProjects = async () => {
   const projects = Project.findAll({
     order: ["year", "clientId"],
-    include: this.Client,
+    include: Client,
   });
   return projects;
 };
@@ -63,3 +65,51 @@ exports.routeDetails = async (request, response) => {
     tasks,
   });
 };
+
+exports.routeAdd = async (request, response) => {
+  const clientId = request.params.id;
+  const projects = await this.getProjectsForClient(clientId);
+
+  return response.render("layout", {
+    pageTitle: "Register New Project",
+    template: "project_add",
+    projects,
+    clientId,
+  });
+}
+
+exports.routeCopy = async (request, response) => {
+  const projectId = request.params.id;
+  var project = await this.getProject(projectId);
+
+  await Project.create({
+    name: project.name,    
+    budget: project.budget,
+    timeAllocated: project.timeAllocated,
+    realRate: project.realRate,
+    period: project.period,
+    year: 2023,
+    startDate: null,
+    clientId: project.clientId
+  }).then((project) => {
+    if(project){
+      console.log(project)
+    } else{
+      console.log('Erreur creation projet');
+    }
+  }
+ );
+
+  return response.redirect("/");
+}
+
+exports.routeCreate = async (request, response) => {
+
+  const clientId = request.params.id;
+
+  return response.render("layout", {
+    pageTitle: "My Projects",
+    template: "project_create",
+    clientId,
+  });
+}

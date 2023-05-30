@@ -8,13 +8,17 @@
   <% projects.forEach(function (project) {%>  
     <li class="list-group-item d-flex justify-content-between align-items-start">
       <div class="ms-2 me-auto">
-        <div class="fw-bold"><a href="project/<%=project.clientId%>"><%=project.name%></a> (<%=project.year%>) </div>
+        <div class="fw-bold"><a href="/project/copy/<%=project.projectId%>"><%=project.name%></a> (<%=project.year%>) </div>
         Budget: <%=project.budget%> €
       </div>
       <span class="badge bg-primary rounded-pill"><%=project.timeAllocated%></span>
     </li>
     <%})%>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold"><a href="/project/create/<%=clientId%>">Create New</a></div>
+      </div>
+    </li>
+
 </ol>
-
-
 </div>

@@ -65,7 +65,12 @@ exports.RouteByYear = async (request, response) => {
 
     const clients = await this.getClientDetailsByUser(response.locals.user_id, currentYear);
     const tasks = await taskController.getTasks();
-    const all_clients = await this.getNames();
+    var all_clients = await this.getNames();
+    clients.forEach(element => {
+      all_clients = all_clients.filter( (client) => {
+        return client.clientId != element.clientId;
+      })
+    });
 
     return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear, all_clients, tasks });
 }
