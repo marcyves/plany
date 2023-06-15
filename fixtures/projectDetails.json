@@ -1,0 +1,65 @@
+[
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 1,
+            "projectId": 1,
+            "realRate": 101.50,
+            "year": "2023"
+        }
+    },
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 2,
+            "projectId": 1,
+            "realRate": 101.50,
+            "year": "2023"
+        }
+    },
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 3,
+            "projectId": 1,
+            "realRate": 101.50,
+            "year": "2022"
+        }
+    },
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 4,
+            "projectId": 2,
+            "realRate": 101.50,
+            "year": "2021"
+        }
+    },
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 5,
+            "projectId": 2,
+            "realRate": 101.50,
+            "year": "2021"
+        }
+    },
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 6,
+            "projectId": 1,
+            "realRate": 101.50,
+            "year": "2022"
+        }
+    },
+    {
+        "model": "projectDetails",
+        "data": {
+            "projectDetailsId": 7,
+            "projectId": 3,
+            "realRate": 101.50,
+            "year": "2022"
+        }
+    }
+]

@@ -32,8 +32,11 @@ exports.getClientDetailsByUser = (id, year) => {
 
     return Client.findAll({ include: [{
                                         model: db.project,
-                                        where: {year: year}
-                                      }],
+                                        include: [{
+                                          model: db.projectDetails,
+                                          where: {year: year}
+                                          }]
+                                    }],
                                       where: { userId: id},
                                       order: [[db.project, 'name', 'ASC']]
                           });
@@ -61,7 +64,7 @@ exports.RouteByYear = async (request, response) => {
     }else{
         var currentYear = new Date().getFullYear();
     }
-    console.log(`=== Preparing route for ${currentYear}`);
+    console.log(`=== Preparing route for ${currentYear} and user ${response.locals.user_id}`);
 
     const clients = await this.getClientDetailsByUser(response.locals.user_id, currentYear);
     const tasks = await taskController.getTasks();

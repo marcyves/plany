@@ -1,22 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
-    const Project = sequelize.define('Projects', {
-        projectId: {
+    const ProjectDetails = sequelize.define('ProjectDetails', {
+        projectDetailsId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
           },
-          name: {
+          realRate:{
+            type: DataTypes.FLOAT,
+            allowNull: false
+          },
+          period: {
+            type: DataTypes.STRING,
+            allowNull: true
+          },
+          year: {
             type: DataTypes.STRING,
             allowNull: false
           },
-          budget: {
-            type: DataTypes.FLOAT,
+          startDate: {
+            type: DataTypes.DATE,
             allowNull: true
-          },
-          timeAllocated: {
-            type: DataTypes.FLOAT,
-            allowNull: true
-          },
+          }
         },{
             // Ne pas ajouter les attributs timestamps (updatedAt, createdAt)
             timestamps: false,
@@ -26,5 +30,5 @@ module.exports = (sequelize, DataTypes) => {
             updatedAt: false,
     });
 
-    return Project;
+    return ProjectDetails;
 };

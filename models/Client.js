@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Client = sequelize.define('Client', {
+    const Client = sequelize.define('Clients', {
         clientId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
           }
         },{
-            // Ne pas ajouter les attibuts timestamps (updatedAt, createdAt)
+            // Ne pas ajouter les attributs timestamps (updatedAt, createdAt)
             timestamps: false,
             // Pas de createdAt
             createdAt: false,

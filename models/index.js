@@ -49,30 +49,34 @@ db.Op = Op;
 db.user = require("./User.js")(database, Sequelize.DataTypes);
 db.client = require("./Client.js")(database, Sequelize.DataTypes);
 db.project = require("./Project.js")(database, Sequelize.DataTypes);
+db.projectDetails = require("./ProjectDetails.js")(database, Sequelize.DataTypes);
 db.task = require("./Task.js")(database, Sequelize.DataTypes);
 db.planning = require("./Planning.js")(database, Sequelize.DataTypes);
 
-  // Ajout des relations
-  if (version == "planetscale") {
+// Ajout des relations
+if (version == "planetscale") {
 
-  db.client.belongsTo(db.user, {constraints: false,});
-  db.project.belongsTo(db.client, {constraints: false,});
+  db.client.belongsTo(db.user, {constraints: false, foreignKey: "userId" });
+  db.project.belongsTo(db.client, {constraints: false, foreignKey: "clientId" });
+  db.projectDetails.belongsTo(db.project, {constraints: false, foreignKey: "projectId" });
   db.task.belongsTo(db.project, { foreignKey: "projectId", constraints: false,});
   db.planning.belongsTo(db.task, { foreignKey: "taskId", constraints: false,});
 
   db.user.hasMany(db.client, { foreignKey: "userId", constraints: false, });
   db.client.hasMany(db.project, { foreignKey: "clientId", constraints: false, });
+  db.project.hasMany(db.projectDetails, { foreignKey: "projectId", constraints: false, });
   db.project.hasMany(db.task, { foreignKey: "projectId", constraints: false, });
   db.task.hasMany(db.planning, { foreignKey: "taskId", constraints: false, });
-
 } else {
-  db.client.belongsTo(db.user);
-  db.project.belongsTo(db.client);
+  db.client.belongsTo(db.user, { foreignKey: "userId" });
+  db.project.belongsTo(db.client, { foreignKey: "clientId" });
+  db.projectDetails.belongsToMany(db.project, {through: "projectId" });
   db.task.belongsTo(db.project, { foreignKey: "projectId" });
   db.planning.belongsTo(db.task, { foreignKey: "taskId" });
 
   db.user.hasMany(db.client, { foreignKey: "userId" });
   db.client.hasMany(db.project, { foreignKey: "clientId" });
+  db.project.hasMany(db.projectDetails, { foreignKey: "projectId"});
   db.project.hasMany(db.task, { foreignKey: "projectId" });
   db.task.hasMany(db.planning, { foreignKey: "taskId" });
 }
