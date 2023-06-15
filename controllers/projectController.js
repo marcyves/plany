@@ -1,9 +1,9 @@
 const db = require("../models");
 const Project = db.project;
-const Client = db.client;
+const ClientModel = db.client;
 
 const taskController = require("../controllers/taskController.js");
-const { response } = require("express");
+const clientController = require("../controllers/clientController.js");
 
 /**
  * Get all project details
@@ -76,35 +76,69 @@ exports.routeAdd = async (request, response) => {
     projects,
     clientId,
   });
-}
+};
 
 exports.routeCopy = async (request, response) => {
+  // Get actual project details
   const projectId = request.params.id;
   var project = await this.getProject(projectId);
+  // Get Client for this project
+  var Client = await clientController.getClient(project.clientId);
+  // Link Client to user if necessary
+  var clientId = project.clientId;
+  if (Client.userId !== request.session.user_id) {
+    await ClientModel.create({
+      name: Client.name,
+      defaultRate: Client.defaultRate,
+      userId: request.session.user_id,
+    }).then((client) => {
+      if (client) {
+        console.log(client);
+        clientId = client.clientId;
+      } else {
+        const message = "Erreur creation Client";
+        console.log(message);
+        reponse.render("layout", {
+          pageTitle: "Client Creation Error",
+          template: "Erreur",
+          message
+        });
+      }
+    });
 
-  await Project.create({
-    name: project.name,    
-    budget: project.budget,
-    timeAllocated: project.timeAllocated,
-    realRate: project.realRate,
-    period: project.period,
-    year: 2023,
-    startDate: null,
-    clientId: project.clientId
-  }).then((project) => {
-    if(project){
-      console.log(project)
-    } else{
-      console.log('Erreur creation projet');
-    }
+    // Duplicate project for current year
+    const now = new Date();
+    const year = parseInt(now.getFullYear());
+    await Project.create({
+      name: project.name,
+      budget: project.budget,
+      timeAllocated: project.timeAllocated,
+      realRate: project.realRate,
+      period: project.period,
+      year: year,
+      startDate: null,
+      clientId: clientId,
+    }).then((project) => {
+      if (project) {
+        console.log(project);
+      } else {
+        const message = "Erreur creation projet";
+        console.log(message);
+        reponse.render("layout", {
+          pageTitle: "Project Creation Error",
+          template: "Erreur",
+          message
+        });
+
+      }
+    });
   }
- );
 
+  // Back to home page
   return response.redirect("/");
-}
+};
 
 exports.routeCreate = async (request, response) => {
-
   const clientId = request.params.id;
 
   return response.render("layout", {
@@ -112,4 +146,4 @@ exports.routeCreate = async (request, response) => {
     template: "project_create",
     clientId,
   });
-}
+};
