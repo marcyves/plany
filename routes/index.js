@@ -31,7 +31,7 @@ module.exports = (params) => {
   router.use("/", (requete, reponse) => {
     reponse.render("layout", {
       pageTitle: "Cette page n'existe pas",
-      template: "erreur",
+      template: "404",
     });
   });
 

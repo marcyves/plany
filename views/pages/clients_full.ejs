@@ -67,7 +67,9 @@
 				<%=total_budget.toFixed(2).padStart(5,'0')%>€
 			</td>	
 		</tr>
+
 		<!-- List of schools with no course yet-->
+		<tr><th colspan="2">Not assigned yet</th></tr>
 		<% all_clients.forEach(client => {%>
 			<tr class="table-primary">
 			<td>
