@@ -8,9 +8,12 @@ const cookieParser = require('cookie-parser');
 const sequelize_fixtures = require("sequelize-fixtures");
 const db = require("./models");
 
+console.log('Bootstrap server');
+
 db.sequelize.sync({ force: true })
+//db.sequelize.sync()
   .then(() => {
-    console.log("== Data Base Loaded");
+    console.log("== Data Base Created - Loading Fixtures");
     // Import test data
     sequelize_fixtures
       .loadFiles(
@@ -18,6 +21,7 @@ db.sequelize.sync({ force: true })
           "fixtures/user.json",
           "fixtures/client.json",
           "fixtures/project.json",
+          "fixtures/projectDetails.json",
           "fixtures/task.json",
           "fixtures/planning.json",
         ],
