@@ -1,3 +1,4 @@
+<h1><%= pageTitle %></h1>
 <div>
 	<form action="/client/year/" method="get">
 		<select name="year" onchange="this.form.submit()">
@@ -69,7 +70,7 @@
 		</tr>
 
 		<!-- List of schools with no course yet-->
-		<tr><th colspan="2">Not assigned yet</th></tr>
+		<tr><th colspan="2">Not my clients</th></tr>
 		<% all_clients.forEach(client => {%>
 			<tr class="table-primary">
 			<td>
