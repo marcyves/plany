@@ -6,3 +6,7 @@ module.exports.checkSignIn = function (req, res, next){
       res.redirect('/user/login');
     }
  }
+
+ module.exports.debug = function (level, msg){
+   console.log(`=== ${msg}`);
+ }
