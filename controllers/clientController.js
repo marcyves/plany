@@ -38,7 +38,7 @@ exports.getClientDetailsByUser = (id, year) => {
                                           }]
                                     }],
                                       where: { userId: id},
-                                      order: [[db.project, 'name', 'ASC']]
+                                      order: [['name', 'ASC'],[db.project, 'name', 'ASC']]
                           });
 }
 
@@ -75,7 +75,14 @@ exports.RouteByYear = async (request, response) => {
       })
     });
 
-    return response.render('layout', { pageTitle: 'My Clients', template: 'clients_full', clients, years, currentYear, all_clients, tasks });
+    return response.render('layout', { 
+      pageTitle: 'My Clients',
+      template: 'clients_full',
+      clients,
+      years,
+      currentYear,
+      all_clients,
+      tasks });
 }
 
 /**
