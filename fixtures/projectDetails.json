@@ -12,7 +12,7 @@
         "model": "projectDetails",
         "data": {
             "projectDetailsId": 2,
-            "projectId": 1,
+            "projectId": 2,
             "realRate": 101.50,
             "year": "2023"
         }

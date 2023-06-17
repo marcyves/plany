@@ -1,17 +1,20 @@
 const db = require("../models");
 const Project = db.project;
+const ProjectDetails = db.projectDetails;
 const ClientModel = db.client;
 
 const taskController = require("../controllers/taskController.js");
 const clientController = require("../controllers/clientController.js");
+
+const myLib = require("../config/myLib");
 
 /**
  * Get all project details
  */
 exports.getProjects = async () => {
   const projects = Project.findAll({
-    order: ["year", "clientId"],
-    include: Client,
+    order: ["clientId"],
+    include: ClientModel,
   });
   return projects;
 };
@@ -47,7 +50,11 @@ exports.getProjectsForClient = async (id) => {
 };
 
 exports.routeList = async (request, response) => {
+
+  myLib.debug(1, "routeList");
+
   const projects = await this.getProjects();
+  
   return response.render("layout", {
     pageTitle: "My Projects",
     template: "projects_all",
@@ -82,49 +89,42 @@ exports.routeCopy = async (request, response) => {
   // Get actual project details
   const projectId = request.params.id;
   var project = await this.getProject(projectId);
+
+  myLib.debug(1,`Add project "${project.name}" details to client`);
+
   // Get Client for this project
   var Client = await clientController.getClient(project.clientId);
-  // Link Client to user if necessary
-  var clientId = project.clientId;
   if (Client.userId !== request.session.user_id) {
-    await ClientModel.create({
-      name: Client.name,
-      defaultRate: Client.defaultRate,
-      userId: request.session.user_id,
-    }).then((client) => {
-      if (client) {
-        console.log(client);
-        clientId = client.clientId;
-      } else {
-        const message = "Erreur creation Client";
-        console.log(message);
-        reponse.render("layout", {
-          pageTitle: "Client Creation Error",
-          template: "Erreur",
-          message
-        });
-      }
+    const message = "Project not in client portfolio Error";
+    myLib.debug(1,message);
+    response.render("layout", {
+      pageTitle: message,
+      template: "Erreur",
+      message
     });
+  }
+  
+  // Duplicate project details for current year
+  const now = new Date();
+  const year = parseInt(now.getFullYear());
+  
+  var projectDetails = await ProjectDetails.findOne({ where: { projectId: projectId } });
+  if(projectDetails){
+    myLib.debug(1,`project details found : ${projectDetails.projectDetailsId}`);
 
-    // Duplicate project for current year
-    const now = new Date();
-    const year = parseInt(now.getFullYear());
-    await Project.create({
-      name: project.name,
-      budget: project.budget,
-      timeAllocated: project.timeAllocated,
-      realRate: project.realRate,
-      period: project.period,
+    await ProjectDetails.create({
+      realRate: projectDetails.realRate,
+      period: projectDetails.period,
       year: year,
       startDate: null,
-      clientId: clientId,
-    }).then((project) => {
-      if (project) {
-        console.log(project);
+      projectId: projectId,
+    }).then((details) => {
+      if (details) {
+        console.log(`Nouveaux details pour le projet : ${details.projectDetailsId}`);
       } else {
-        const message = "Erreur creation projet";
+        const message = "Erreur creation details projet";
         console.log(message);
-        reponse.render("layout", {
+        response.render("layout", {
           pageTitle: "Project Creation Error",
           template: "Erreur",
           message
@@ -132,7 +132,31 @@ exports.routeCopy = async (request, response) => {
 
       }
     });
+  }else{
+    myLib.debug(1,`project details creation`);
+
+    await ProjectDetails.create({
+      realRate: 0,
+      period: null,
+      year: year,
+      startDate: null,
+      projectId: projectId,
+    }).then((details) => {
+      if (details) {
+        console.log(`Nouveaux details pour le projet : ${details.projectDetailsId}`);
+      } else {
+        const message = "Erreur creation details projet";
+        console.log(message);
+        response.render("layout", {
+          pageTitle: "Project Creation Error",
+          template: "Erreur",
+          message
+        });
+  
+      }
+    });
   }
+  
 
   // Back to home page
   return response.redirect("/");
