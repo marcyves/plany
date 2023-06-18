@@ -1,4 +1,5 @@
-<h1><%= taskLabel %> Planification</h1>
+<h1><%= pageTitle %></h1>
+<h2><%= taskLabel %> Planification</h2>
 
 <ul class="list-group">
     <li class="list-group-item active" aria-current="true" ><%= task.name %> for <%= project.name %></li>
@@ -6,7 +7,7 @@
     <% let index = 0;
        planning.forEach(function(step){%>
       <li class="list-group-item">
-        <%= ++index %>: <%= step.startDate %> <strong><%= step.name %></strong> <%= step.duration %>
+        <%= ++index %>: <%= step.startDate %> <strong><%= step.name %></strong> <%= step.duration %> hour
       </li>    
     <%})%>
 

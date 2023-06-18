@@ -1,4 +1,5 @@
-<h1>Planning task <%= task.taskId %></h1>
+<h1><%= pageTitle %></h1>
+<h2>Planning task <%= task.taskId %></h2>
 
 <div class="mb-3">
 <form action="/task/plan/" method="post">
@@ -8,7 +9,12 @@
     <label for="step_date" class="form-label">Date</label>
     <input type="datetime-local" name="startDate" id="step_date">
     <label for="step_duration" class="form-label">Duration</label>
-    <input type="text" name="duration" id="step_duration">
+    <select name="duration" id="step_duration">
+        <option value="1">1</option>
+        <option value="1,5">1h30</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+    </select>
     <input type="submit" value="Record">
 </form>
 </div>
